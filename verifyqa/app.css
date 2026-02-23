@@ -603,6 +603,37 @@ h2{font-size: var(--h2);}
   white-space:nowrap;
 }
 
+/* --- Móvil: badges y título que se vean completos --- */
+@media (max-width: 768px){
+  .mapBadgesFeature{
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .mapBadgesFeature .badge{
+    white-space: normal;
+    text-align: center;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+  .mapTitle{
+    white-space: normal;
+    font-size: clamp(22px, 5.5vw, 32px);
+    line-height: 1.15;
+    padding: 0 6px;
+  }
+  .mapHero h1{
+    font-size: clamp(22px, 5.5vw, 32px);
+  }
+}
+
+@media (max-width: 480px){
+  .mapBadgesFeature .badge{ font-size: 11px; padding: 6px 8px; }
+  .mapTitle{ font-size: 20px; }
+  .mapHero h1{ font-size: 20px; }
+}
+
 .routeRow{display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px}
 
 .routePill{
@@ -647,7 +678,7 @@ h2{font-size: var(--h2);}
 }
 
 @media (max-width: 640px){
-  .mapGrid{ grid-template-columns: 1fr; }
+  .mapGrid{ grid-template-columns: 1fr; width: 100%; min-width: 0; }
 }
 
 /* Menú tipo “Start”: íconos flotantes */
@@ -843,7 +874,7 @@ h2{font-size: var(--h2);}
 }
 
 @media (max-width: 640px){
-  .frameMap .mapGrid{ grid-template-columns: 1fr; }
+  .frameMap .mapGrid{ grid-template-columns: 1fr; width: 100%; min-width: 0; }
 }
 
 /* Slide layout */
@@ -851,6 +882,15 @@ h2{font-size: var(--h2);}
 .copy{min-width:0; grid-column:1; grid-row:1;}
 .visual{min-width:0; grid-column:2; grid-row:1; display:flex; flex-direction:column; gap:16px; justify-content:flex-start}
 .heroWide{grid-column:1/ -1; grid-row:2; border-radius: 24px; border:1px solid var(--line); background: rgba(255,255,255,.92); padding: 18px 18px; display:flex; flex-direction:column; gap: 14px; overflow:hidden}
+
+@media (max-width: 768px){
+  .slideGrid{grid-template-columns: 1fr; grid-template-rows: auto; gap: 16px;}
+  .slideGrid .copy{grid-column: 1; grid-row: auto;}
+  .slideGrid .visual{grid-column: 1; grid-row: auto;}
+  .slideGrid .heroWide{grid-column: 1; grid-row: auto;}
+  .inner{padding: var(--pad); gap: 16px;}
+  .slideScroll{padding-right: 8px;}
+}
 
 .heroCard{
   background: rgba(255,255,255,.90);
@@ -1285,10 +1325,33 @@ h2{font-size: var(--h2);}
 }
 
 @media (max-width: 650px){
-  :root{--h1:46px; --h2:40px; --lead:20px; --pad:22px}
-  .topActions{display:none}
+  :root{--h1:46px; --h2:40px; --lead:20px; --pad:18px}
   .mapHero h1{font-size: 44px}
   .tile{min-height: 86px; font-size: 18px}
+  /* Topbar más compacta en móvil */
+  .topbar{padding: 10px 12px; gap: 10px;}
+  .brand{padding: 8px 10px; gap: 10px;}
+  .brandLogo,.brandExpo{width: 40px; height: 40px;}
+  .brandTitle{font-size: 15px; max-width: 200px;}
+  .brandSub{font-size: 12px;}
+  .portalBtn,.whatsappBtn{font-size: 11px; padding: 8px 10px;}
+  .hamburgerBtn{width: 44px; height: 44px;}
+  /* Grid del mapa: una columna y tiles más compactos */
+  .frameMap .inner{gap: 14px; padding: var(--pad);}
+  .frameMap .mapGrid{margin-top: 16px; row-gap: 14px; column-gap: 14px;}
+  .frameMap .appTile{min-height: 140px; padding: 14px 10px;}
+  .frameMap .appIcon{width: 64px; height: 64px; border-radius: 18px;}
+  .frameMap .appIcon svg{width: 28px; height: 28px;}
+  .frameMap .appLabel{font-size: 13px; max-width: 100%;}
+  .frameMap .appNum{width: 26px; height: 26px; font-size: 12px;}
+  /* Permitir scroll dentro del mapa si el contenido no cabe */
+  .frameMap .inner{ overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .frameMap{ overflow: hidden; }
+}
+
+@media (max-width: 480px){
+  .brandSub{display: none;}
+  .brandTitle{max-width: 160px; font-size: 14px;}
 }
 
 .rLbl{display:inline-block}

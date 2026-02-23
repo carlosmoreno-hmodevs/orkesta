@@ -87,7 +87,7 @@
     // Account for fixed topbar height
     const topbarH = syncTopbarVar();
 
-    const pad = 28;
+    const pad = vw < 640 ? 12 : 28;
     const usableW = vw - pad*2;
     const usableH = vh - topbarH - pad*2;
 

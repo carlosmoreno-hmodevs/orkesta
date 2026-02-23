@@ -858,7 +858,7 @@ function sparkline(values){
   </svg>`;
 }
 
-// --- ERP Loading Overlay (2.5s) ---
+// --- ERP Loading Overlay (800 ms) ---
 let loadingTimer = null;
 
 function showLoading(){
@@ -913,7 +913,7 @@ function navigate(next, force=false){
     state.loading = false;
     hideLoading();
     render();
-  }, 3000);
+  }, 800);
 }
 
 function kpiCard(title, value, sub, series){
@@ -2289,8 +2289,8 @@ function viewErpValidacion(){
   ]);
 }
 
-// --- ERP Connect: pantalla integrada + simulación de sincronización (30s) ---
-const ERP_SYNC_MS = 30000;
+// --- ERP Connect: pantalla integrada + simulación de sincronización (8s) ---
+const ERP_SYNC_MS = 8000;
 let __lastView = null;
 let __erpTimer = null;
 let __erpInterval = null;
@@ -2311,8 +2311,10 @@ function restartGif(imgEl){
 }
 
 function buildErpLogScript(){
-  // Script determinístico (0s → 30s) para emular extracción real de un ERP:
+  // Script determinístico (0s → 8s) para emular extracción real de un ERP:
   // catálogos → hechos/transacciones → validaciones → carga DW → refresh KPIs
+  const DURATION_SEC = 8;
+  const scale = (t) => t * DURATION_SEC / 30;
   const lines = [];
   const add = (t, kind, html)=>lines.push({t, kind, html});
 
@@ -2322,9 +2324,9 @@ function buildErpLogScript(){
     return `${mm}:${ss}`;
   };
 
-  const ok = (t, msg)=>add(t,"ok",`<span class="tTs">${ts(t)}</span> <span class="tOk">[OK]</span> ${msg}`);
-  const info = (t, msg)=>add(t,"info",`<span class="tTs">${ts(t)}</span> <span class="tInfo">[INFO]</span> ${msg}`);
-  const warn = (t, msg)=>add(t,"warn",`<span class="tTs">${ts(t)}</span> <span class="tWarn">[WARN]</span> ${msg}`);
+  const ok = (t, msg)=>add(scale(t),"ok",`<span class="tTs">${ts(scale(t))}</span> <span class="tOk">[OK]</span> ${msg}`);
+  const info = (t, msg)=>add(scale(t),"info",`<span class="tTs">${ts(scale(t))}</span> <span class="tInfo">[INFO]</span> ${msg}`);
+  const warn = (t, msg)=>add(scale(t),"warn",`<span class="tTs">${ts(scale(t))}</span> <span class="tWarn">[WARN]</span> ${msg}`);
 
   // --- handshake ---
   info(0.0,"Inicializando conector <b>ERP Connect</b> (modo demo) …");
@@ -2424,7 +2426,7 @@ function buildErpLogScript(){
 
   info(29.0,"Actualizando modelo semántico (fórmulas / KPIs / umbrales) …");
   ok(29.5,"Agregados y caché listos.");
-  ok(30.0,"Sincronización completada. KPIs listos para recalcular en <b>Estrategia</b>.");
+  ok(30,"Sincronización completada. KPIs listos para recalcular en <b>Estrategia</b>.");
 
   return lines.sort((a,b)=>a.t-b.t);
 }
@@ -2593,7 +2595,7 @@ function viewErpConnect(){
             el("div",{class:"termRow2"},[
               el("div",{class:"termTimeWrap"},[
                 el("span",{class:"termLabel", html:"Tiempo:"}),
-                el("span",{class:"termTime", id:"erpTime", html:"00:00 / 00:30"})
+                el("span",{class:"termTime", id:"erpTime", html:"00:00 / 00:08"})
               ]),
               el("div",{class:"termStatusWrap"},[
                 el("span",{class:"termLabel", html:"Estado:"}),
@@ -2662,7 +2664,7 @@ function render(){
   if(state.view==="audit-control") content.appendChild(viewPlaceholder("Auditoría · Supervisión","En producción: revisión de hallazgos, aprobaciones, liberación/rechazo y trazabilidad."));
   if(state.view==="audit-evidencia") content.appendChild(viewPlaceholder("Auditoría · Evidencia","En producción: evidencias, fotografías, adjuntos, geolocalización y firmas."));
 
-  // ERP Connect: al entrar, iniciar sincronización (30s)
+  // ERP Connect: al entrar, iniciar sincronización (8s)
   if(__enteringView && state.view==="erp-connect") startErpSync();
   __lastView = state.view;
 
