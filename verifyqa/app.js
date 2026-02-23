@@ -275,28 +275,14 @@
   }
 
 
-  // ===== Reportes PDF (Topbar) — visor en página con PDF.js (móvil y escritorio) =====
+  // ===== Reportes PDF (Topbar): escritorio = iframe en modal; móvil = nueva pestaña =====
   const pdfModal = document.getElementById('pdfModal');
-  const pdfViewerContainer = document.getElementById('pdfViewerContainer');
-  const pdfViewerLoading = document.getElementById('pdfViewerLoading');
-  const pdfFrameFallback = document.getElementById('pdfFrameFallback');
+  const pdfFrame = document.getElementById('pdfFrame');
   const pdfTitle = document.getElementById('pdfModalTitle');
   const pdfOpen = document.getElementById('pdfModalOpen');
 
-  const pdfjsLib = window.pdfjsLib;
-  var pdfWorkerReady = Promise.resolve();
-  if(pdfjsLib){
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    pdfWorkerReady = fetch('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js')
-      .then(function(r){ return r.text(); })
-      .then(function(text){
-        try{
-          var blob = new Blob([text], { type: 'application/javascript' });
-          var url = URL.createObjectURL(blob);
-          pdfjsLib.GlobalWorkerOptions.workerSrc = url;
-        }catch(_){}
-      })
-      .catch(function(){});
+  function isMobileOrTablet(){
+    return window.innerWidth <= 768 || ('ontouchstart' in window);
   }
 
   function openPdfModal(src, title){
@@ -304,7 +290,13 @@
     const cleanTitle = (title || 'Reporte').trim();
     const absoluteUrl = new URL(src, window.location.href).href;
 
-    if(!pdfModal || !pdfViewerContainer) return;
+    if(isMobileOrTablet()){
+      window.open(absoluteUrl, '_blank', 'noopener,noreferrer');
+      showToast('Reporte abierto en nueva pestaña.');
+      return;
+    }
+
+    if(!pdfModal || !pdfFrame) return;
     if(pdfTitle) pdfTitle.textContent = cleanTitle;
     if(pdfOpen) pdfOpen.setAttribute('href', absoluteUrl);
 
@@ -312,85 +304,15 @@
     pdfModal.setAttribute('aria-hidden','false');
     document.documentElement.style.overflow = 'hidden';
 
-    pdfViewerContainer.innerHTML = '';
-    pdfViewerContainer.style.display = '';
-    if(pdfFrameFallback){ pdfFrameFallback.setAttribute('src', ''); pdfFrameFallback.setAttribute('aria-hidden', 'true'); pdfFrameFallback.style.display = 'none'; }
-    if(pdfViewerLoading){
-      pdfViewerLoading.textContent = 'Cargando reporte…';
-      pdfViewerLoading.setAttribute('aria-hidden', 'false');
-    }
-
-    if(!pdfjsLib){
-      if(pdfViewerLoading) pdfViewerLoading.textContent = 'Visor no disponible. Usa "Abrir en nueva pestaña".';
-      return;
-    }
-
-    pdfWorkerReady.then(function(){
-      return pdfjsLib.getDocument({ url: absoluteUrl }).promise;
-    })
-      .then(function(pdfDoc){
-        return new Promise(function(resolve){
-          requestAnimationFrame(function(){
-            requestAnimationFrame(function(){
-              setTimeout(function(){
-                var w = pdfViewerContainer.offsetWidth;
-                if(!w || w <= 0) w = Math.min(800, (window.innerWidth || 800) - 48);
-                resolve({ pdfDoc: pdfDoc, containerW: w });
-              }, 50);
-            });
-          });
-        });
-      })
-      .then(function(_){
-        var pdfDoc = _.pdfDoc;
-        var containerW = _.containerW;
-        const numPages = pdfDoc.numPages;
-        const scaleLimit = 3;
-        const tasks = [];
-        for(let i = 1; i <= numPages; i++){
-          tasks.push(
-            pdfDoc.getPage(i).then(function(page){
-              const v1 = page.getViewport({ scale: 1 });
-              const scale = Math.min(containerW / v1.width, scaleLimit);
-              const viewport = page.getViewport({ scale });
-              const canvas = document.createElement('canvas');
-              const ctx = canvas.getContext('2d');
-              canvas.height = viewport.height;
-              canvas.width = viewport.width;
-              const wrap = document.createElement('div');
-              wrap.className = 'pdfPageWrap';
-              wrap.appendChild(canvas);
-              pdfViewerContainer.appendChild(wrap);
-              return page.render({ canvasContext: ctx, viewport: viewport }).promise;
-            })
-          );
-        }
-        return Promise.all(tasks);
-      })
-      .then(function(){
-        if(pdfViewerLoading) pdfViewerLoading.setAttribute('aria-hidden', 'true');
-      })
-      .catch(function(){
-        if(pdfViewerLoading) pdfViewerLoading.setAttribute('aria-hidden', 'true');
-        if(pdfViewerContainer) pdfViewerContainer.style.display = 'none';
-        if(pdfFrameFallback){
-          pdfFrameFallback.setAttribute('src', absoluteUrl + '#view=FitH');
-          pdfFrameFallback.setAttribute('aria-hidden', 'false');
-          pdfFrameFallback.style.display = 'block';
-        }
-      });
+    const withHash = (src || '') + ((src || '').includes('#') ? '' : '#view=FitH');
+    pdfFrame.setAttribute('src', withHash);
   }
 
   function closePdfModal(){
-    if(!pdfModal) return;
+    if(!pdfModal || !pdfFrame) return;
     pdfModal.classList.remove('show');
     pdfModal.setAttribute('aria-hidden','true');
-    if(pdfViewerContainer){ pdfViewerContainer.innerHTML = ''; pdfViewerContainer.style.display = ''; }
-    if(pdfFrameFallback){ pdfFrameFallback.setAttribute('src', ''); pdfFrameFallback.setAttribute('aria-hidden', 'true'); pdfFrameFallback.style.display = 'none'; }
-    if(pdfViewerLoading){
-      pdfViewerLoading.setAttribute('aria-hidden', 'true');
-      pdfViewerLoading.textContent = 'Cargando reporte…';
-    }
+    pdfFrame.setAttribute('src', '');
     document.documentElement.style.overflow = '';
   }
 
