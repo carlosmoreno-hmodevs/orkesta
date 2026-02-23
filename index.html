@@ -1,126 +1,301 @@
-
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>ORKesta · BSC (PowerBI style)</title>
-  <link rel="icon" type="image/png" href="assets/logo-orkesta.png"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/theme.css"/>
-  <link rel="stylesheet" href="assets/app.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal · Orkesta / VerifyQA</title>
+  <meta name="theme-color" content="#0b3a6e" />
+  <style>
+    :root{
+      --muted:rgba(255,255,255,.78);
+      --muted2:rgba(255,255,255,.62);
+      --shadow:0 18px 60px rgba(2,6,23,.35);
+      --shadowSoft:0 10px 34px rgba(2,6,23,.22);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
+      background:#0b1220;
+      color:#fff;
+      overflow:hidden;
+    }
+
+    .wrap{
+      height:100%;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      position:relative;
+      isolation:isolate;
+    }
+
+    .side{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:48px 28px;
+      text-decoration:none;
+      color:inherit;
+      outline:none;
+      transition:transform .35s ease;
+      overflow:hidden;
+    }
+    .side:focus-visible{ box-shadow:0 0 0 4px rgba(255,255,255,.35) inset; }
+
+    /* Capa 1: imagen de fondo (tu "transparencia") */
+    .side::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      opacity: .60;
+      filter:contrast(1.03) saturate(1.06);
+      z-index:-2;
+      transform:scale(1.02);
+    }
+
+    /* Capa 2: gradiente/tono de marca encima */
+    .side::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      opacity: .72;
+      transition:opacity .35s ease;
+    }
+
+    .left::before{  background-image:url("assets/bg-orkesta-erp.png"); }
+    .right::before{ background-image:url("assets/bg-verifyqa-warehouse.png"); }
+
+    .left::after{
+      background:linear-gradient(115deg, rgba(11,58,110,.95), rgba(10,47,88,.90));
+    }
+    .right::after{
+      background:linear-gradient(115deg, rgba(91,33,182,.92), rgba(14,165,233,.84));
+    }
+
+    .divider{
+      position:absolute;
+      left:50%;
+      top:0;
+      width:2px;
+      height:100%;
+      transform:translateX(-1px);
+      background:linear-gradient(to bottom, transparent, rgba(255,255,255,.25), transparent);
+      z-index:4;
+      pointer-events:none;
+    }
+
+    .content{
+      width:min(520px, 92%);
+      text-align:center;
+      position:relative;
+      padding:18px 16px 10px;
+    }
+
+    .badge{
+      width:54px;
+      height:54px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      margin:0 auto 18px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:var(--shadowSoft);
+      overflow:hidden;
+      backdrop-filter: blur(8px);
+    }
+    .badge img{ width:44px; height:44px; object-fit:contain; }
+
+    .kicker{
+      font-weight:800;
+      letter-spacing:.18em;
+      font-size:12px;
+      opacity:.86;
+    }
+    .title{
+      margin:10px 0 10px;
+      font-weight:900;
+      letter-spacing:.02em;
+      line-height:1.0;
+      font-size:54px;
+      text-transform:uppercase;
+      text-shadow:0 12px 30px rgba(2,6,23,.45);
+    }
+    .subtitle{
+      margin:0 auto 22px;
+      max-width:46ch;
+      font-size:15px;
+      line-height:1.5;
+      color:var(--muted);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.32);
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:.08em;
+      font-size:12px;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+      box-shadow:0 14px 34px rgba(2,6,23,.25);
+      transition:transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .btn:hover{ transform:translateY(-2px); background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.48); }
+    .btn:active{ transform:translateY(0px); }
+
+    .side:hover{ transform:scale(1.01); }
+    .side:hover::after{ opacity: .78; }
+
+    .hint{
+      margin-top:18px;
+      font-size:12px;
+      color:var(--muted2);
+      letter-spacing:.06em;
+    }
+
+    .center{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:96px;
+      height:96px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(2,6,23,.08);
+      box-shadow:var(--shadow);
+      display:grid;
+      place-items:center;
+      z-index:6;
+      pointer-events:none;
+    }
+    .center .mini{
+      width:68px;
+      height:68px;
+      border-radius:999px;
+      background:linear-gradient(135deg, rgba(11,58,110,.12), rgba(14,165,233,.14));
+      border:1px solid rgba(2,6,23,.08);
+      display:grid;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .center .mini::before{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background:radial-gradient(circle at 30% 20%, rgba(45,140,255,.40), transparent 55%),
+                 radial-gradient(circle at 70% 75%, rgba(34,197,94,.34), transparent 55%);
+      filter:blur(10px);
+      opacity:.85;
+    }
+    .center .mini span{
+      position:relative;
+      font-weight:900;
+      letter-spacing:.12em;
+      color:#0b1220;
+      font-size:14px;
+    }
+
+    .footer{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:18px;
+      display:flex;
+      justify-content:space-between;
+      padding:0 22px;
+      color:rgba(255,255,255,.55);
+      font-size:11px;
+      letter-spacing:.08em;
+      z-index:7;
+      pointer-events:none;
+    }
+
+    @media (max-width: 880px){
+      body{ overflow:auto; }
+      .wrap{
+        grid-template-columns:1fr;
+        grid-template-rows:1fr 1fr;
+        overflow:hidden;
+      }
+      .divider{ left:0; top:50%; width:100%; height:2px; transform:translateY(-1px); }
+      .center{ top:50%; left:50%; width:84px; height:84px; }
+      .center .mini{ width:60px; height:60px; }
+      .title{ font-size:44px; }
+      .footer{ position:static; padding:14px 16px 18px; }
+    }
+  </style>
 </head>
+
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <button type="button" class="brand brandHome" id="brandHome" aria-label="Ir al inicio" title="Ir al inicio">
-        <img class="brandlogo" src="assets/logo-orkesta.png" alt="ORKesta"/>
-        <div class="brandtext">
-          <div class="t1">ORKesta + VerifyQA</div>
-          <div class="t2">Retail Ferretero · 2026</div>
+  <main class="wrap" aria-label="Portal de acceso">
+    <!-- ORKESTA -->
+    <a class="side left" href="orkesta/index.html" aria-label="Entrar a Orkesta">
+      <section class="content">
+        <div class="badge" aria-hidden="true">
+          <img src="assets/logo-orkesta.png" alt="" />
         </div>
-        <img class="brandlogo" src="assets/logo-verifyqa.png" alt="VerifyQA"/>
-      </button>
+        <div class="kicker">ENTRAR A</div>
+        <h1 class="title">ORKesta</h1>
+        <p class="subtitle">
+          Capa de estrategia, KPIs e iniciativas conectadas a tu ERP.
+          Ideal para dirección, finanzas y operación.
+        </p>
+        <span class="btn" role="button">Abrir Orkesta</span>
+        <div class="hint">Tip: también puedes dar click en cualquier parte de este lado</div>
+      </section>
+    </a>
 
-      <!-- Navegación moderna (tiles + sub-tiles) -->
-      <div class="navModern" id="navModern">
-        <div class="hdr">Capas ORKESTA</div>
-
-        <div class="tileGrid" id="navParents" aria-label="Menú principal">
-          <button class="navTile active" type="button" data-layer="estrategia" data-default-view="dashboard" aria-expanded="true">
-            <div class="tileIcon">🎯</div>
-            <div class="tileLbl">Estrategia</div>
-            <div class="tileHint">BSC</div>
-          </button>
-          <a class="navTile" href="https://carlosmoreno-hmodevs.github.io/gestor-tareas" target="_blank" rel="noopener noreferrer" data-layer="ejecucion" aria-label="Ejecución - Gestor de Tareas">
-            <div class="tileIcon">✅</div>
-            <div class="tileLbl">Ejecución</div>
-            <div class="tileHint">Tareas</div>
-          </a>
-          <a class="navTile" href="https://web.verifyqa.mx/" target="_blank" rel="noopener noreferrer" data-layer="control" aria-label="Auditoría - VerifyQA">
-            <div class="tileIcon">🛡️</div>
-            <div class="tileLbl">Auditoría</div>
-            <div class="tileHint">Control</div>
-          </a>
-          <button class="navTile" type="button" data-layer="erp" data-default-view="erp-connect" aria-expanded="false">
-            <div class="tileIcon">💼</div>
-            <div class="tileLbl">ERP Connect</div>
-            <div class="tileHint">Datos</div>
-          </button>
+    <!-- VERIFYQA -->
+    <a class="side right" href="verifyqa/index.html" aria-label="Entrar a VerifyQA">
+      <section class="content">
+        <div class="badge" aria-hidden="true">
+          <img src="assets/logo-verifyqa.png" alt="" />
         </div>
+        <div class="kicker">ENTRAR A</div>
+        <h1 class="title">VerifyQA</h1>
+        <p class="subtitle">
+          Auditoría interna, controles, evidencias y planes de acción.
+          Gobierno, riesgo y cumplimiento en un solo flujo.
+        </p>
+        <span class="btn" role="button">Abrir VerifyQA</span>
+        <div class="hint">Tip: también puedes dar click en cualquier parte de este lado</div>
+      </section>
+    </a>
 
-        <div class="subPanel" id="navChildren" aria-label="Submenú"></div>
-      </div>
+    <div class="divider" aria-hidden="true"></div>
 
-      <div class="foot">
-        <button type="button" class="whatsappBtn" id="whatsappBtn" aria-haspopup="dialog" aria-expanded="false">
-          WhatsApp: +52 662 297 1875
-        </button>
-      </div>
-    </aside>
-
-    <main class="main">
-      <div class="topbar">
-        <div class="toolbar">
-          <div class="tabs" id="tabs"></div>
-          <div class="filters">
-            <div class="select">
-              <span class="small">Mes</span>
-              <span id="monthSel"></span>
-            </div>
-            <div class="select">
-              <span class="small">Sucursal</span>
-              <span id="storeSel"></span>
-            </div>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn">Report</button>
-          <button class="btn primary">Tools</button>
-        </div>
-      </div>
-
-      <div class="content" id="content"></div>
-    </main>
-  </div>
-
-  <div class="drawer" id="drawer" aria-hidden="true">
-    <div class="dh">
-      <div class="twrap">
-        <div class="title">Detalle</div>
-        <div class="subtitle" id="drawerSubtitle"></div>
-      </div>
-      <button class="close" id="drawerClose">Cerrar</button>
+    <div class="center" aria-hidden="true" title="Selecciona un sistema">
+      <div class="mini"><span>↔</span></div>
     </div>
-    <div class="body"></div>
-  </div>
 
-  <!-- Modal WhatsApp QR -->
-  <div class="whatsappOverlay" id="whatsappOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="whatsappModalTitle">
-    <div class="whatsappModal" id="whatsappModal">
-      <h2 class="whatsappModalTitle" id="whatsappModalTitle">WhatsApp</h2>
-      <p class="whatsappModalLead">Escanea el QR y presiona ENVIAR para contactarnos</p>
-      <div class="whatsappQrWrap">
-        <img src="assets/whatsapp_qr.png" alt="Código QR para contactar por WhatsApp" class="whatsappQrImg"/>
-      </div>
-      <p class="whatsappModalSteps">1) Escanea – 2) Se abre WhatsApp – 3) Presiona ENVIAR. Recibirás el número al instante.</p>
-      <button type="button" class="whatsappModalClose" id="whatsappModalClose">Cerrar</button>
+    <div class="footer" aria-hidden="true">
+      <div>Portal de acceso</div>
+      <div>Orkesta · VerifyQA</div>
     </div>
-  </div>
+  </main>
 
-  <!-- ERP loading overlay (2.5s) -->
-  <div class="loadingOverlay" id="loadingOverlay" aria-hidden="true">
-    <div class="loadingCard">
-      <img class="loadingGif" src="assets/erp-loading.gif" alt="Cargando"/>
-      <div class="loadingText">
-        <div class="loadingTitle" id="loadingTitle">Enlazando datos de su ERP</div>
-        <div class="loadingSub">Sincronizando ventas, existencias, compras y finanzas…</div>
-      </div>
-    </div>
-  </div>
-
-  <script src="assets/app.js"></script>
+  <script>
+    document.querySelectorAll('.side').forEach((el) => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') el.click();
+      });
+    });
+  </script>
 </body>
 </html>

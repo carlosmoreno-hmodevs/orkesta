@@ -1,0 +1,127 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ORKesta · BSC (PowerBI style)</title>
+  <link rel="icon" type="image/png" href="assets/logo-orkesta.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/theme.css"/>
+  <link rel="stylesheet" href="assets/app.css"/>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <button type="button" class="brand brandHome" id="brandHome" aria-label="Ir al inicio" title="Ir al inicio">
+        <img class="brandlogo" src="assets/logo-orkesta.png" alt="ORKesta"/>
+        <div class="brandtext">
+          <div class="t1">ORKesta + VerifyQA</div>
+          <div class="t2">Retail Ferretero · 2026</div>
+        </div>
+        <img class="brandlogo" src="assets/logo-verifyqa.png" alt="VerifyQA"/>
+      </button>
+
+      <!-- Navegación moderna (tiles + sub-tiles) -->
+      <div class="navModern" id="navModern">
+        <div class="hdr">Capas ORKESTA</div>
+
+        <div class="tileGrid" id="navParents" aria-label="Menú principal">
+          <button class="navTile active" type="button" data-layer="estrategia" data-default-view="dashboard" aria-expanded="true">
+            <div class="tileIcon">🎯</div>
+            <div class="tileLbl">Estrategia</div>
+            <div class="tileHint">BSC</div>
+          </button>
+          <a class="navTile" href="https://carlosmoreno-hmodevs.github.io/gestor-tareas" target="_blank" rel="noopener noreferrer" data-layer="ejecucion" aria-label="Ejecución - Gestor de Tareas">
+            <div class="tileIcon">✅</div>
+            <div class="tileLbl">Ejecución</div>
+            <div class="tileHint">Tareas</div>
+          </a>
+          <a class="navTile" href="https://web.verifyqa.mx/" target="_blank" rel="noopener noreferrer" data-layer="control" aria-label="Auditoría - VerifyQA">
+            <div class="tileIcon">🛡️</div>
+            <div class="tileLbl">Auditoría</div>
+            <div class="tileHint">Control</div>
+          </a>
+          <button class="navTile" type="button" data-layer="erp" data-default-view="erp-connect" aria-expanded="false">
+            <div class="tileIcon">💼</div>
+            <div class="tileLbl">ERP Connect</div>
+            <div class="tileHint">Datos</div>
+          </button>
+        </div>
+
+        <div class="subPanel" id="navChildren" aria-label="Submenú"></div>
+      </div>
+
+      <div class="foot">
+        <a href="../index.html" class="portalBtn" aria-label="Volver al portal para elegir Orkesta o VerifyQA">Ir al portal</a>
+        <button type="button" class="whatsappBtn" id="whatsappBtn" aria-haspopup="dialog" aria-expanded="false">
+          WhatsApp: +52 662 297 1875
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="toolbar">
+          <div class="tabs" id="tabs"></div>
+          <div class="filters">
+            <div class="select">
+              <span class="small">Mes</span>
+              <span id="monthSel"></span>
+            </div>
+            <div class="select">
+              <span class="small">Sucursal</span>
+              <span id="storeSel"></span>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn">Report</button>
+          <button class="btn primary">Tools</button>
+        </div>
+      </div>
+
+      <div class="content" id="content"></div>
+    </main>
+  </div>
+
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="dh">
+      <div class="twrap">
+        <div class="title">Detalle</div>
+        <div class="subtitle" id="drawerSubtitle"></div>
+      </div>
+      <button class="close" id="drawerClose">Cerrar</button>
+    </div>
+    <div class="body"></div>
+  </div>
+
+  <!-- Modal WhatsApp QR -->
+  <div class="whatsappOverlay" id="whatsappOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="whatsappModalTitle">
+    <div class="whatsappModal" id="whatsappModal">
+      <h2 class="whatsappModalTitle" id="whatsappModalTitle">WhatsApp</h2>
+      <p class="whatsappModalLead">Escanea el QR y presiona ENVIAR para contactarnos</p>
+      <div class="whatsappQrWrap">
+        <img src="assets/whatsapp_qr.png" alt="Código QR para contactar por WhatsApp" class="whatsappQrImg"/>
+      </div>
+      <p class="whatsappModalSteps">1) Escanea – 2) Se abre WhatsApp – 3) Presiona ENVIAR. Recibirás el número al instante.</p>
+      <button type="button" class="whatsappModalClose" id="whatsappModalClose">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- ERP loading overlay (2.5s) -->
+  <div class="loadingOverlay" id="loadingOverlay" aria-hidden="true">
+    <div class="loadingCard">
+      <img class="loadingGif" src="assets/erp-loading.gif" alt="Cargando"/>
+      <div class="loadingText">
+        <div class="loadingTitle" id="loadingTitle">Enlazando datos de su ERP</div>
+        <div class="loadingSub">Sincronizando ventas, existencias, compras y finanzas…</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

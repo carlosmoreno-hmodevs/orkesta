@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"/>
+<meta content="VerifyQA — Control de sucursales ferreteras. Rutinas de revisión, incidencias, pendientes, mapa de calor e inventarios." name="description"/>
+<title>VerifyQA — Control de sucursales (Expo Ferretera)</title>
+<link href="app.css" rel="stylesheet"/>
+</head>
+<body>
+<div aria-label="Presentación VerifyQA" data-mode="map" id="app">
+<!-- TOP BAR -->
+<header class="topbar">
+<div aria-label="Ir al menú principal" class="brand" data-go="map" role="button" tabindex="0">
+<img alt="VerifyQA" class="brandLogo" src="assets/verifyqa_round.png"/>
+<div class="brandText">
+<div class="brandTitle">Control de Sucursales</div>
+<div class="brandSub">Expo Nacional Ferretera · CDMX</div>
+</div>
+<img alt="Expo Ferretera" class="brandExpo" src="assets/expo_ferretera.png"/>
+</div>
+<div class="topActions topActionsCorner">
+<a class="portalBtn" href="../index.html" aria-label="Volver al portal para elegir Orkesta o VerifyQA">Ir al portal</a>
+<button aria-haspopup="dialog" aria-expanded="false" class="whatsappBtn" id="whatsappBtn" type="button">WhatsApp: +52 662 297 1875</button>
+<button aria-label="Abrir menú de reportes" aria-expanded="false" aria-haspopup="true" class="hamburgerBtn" id="hamburgerReport" type="button">
+<span class="hamburgerLine"></span>
+<span class="hamburgerLine"></span>
+<span class="hamburgerLine"></span>
+</button>
+<div aria-label="Menú de reportes" aria-hidden="true" class="reportFloatingMenu" id="reportFloatingMenu" role="menu">
+<button class="btn btnGhost reportTopBtn" data-pdf="assets/pdfs/report1_panorama_general.pdf" data-title="Panorama General" role="menuitem" type="button">Panorama General</button>
+<button class="btn btnGhost reportTopBtn" data-pdf="assets/pdfs/report2_radiografia_operativa.pdf" data-title="Radiografía Operativa" role="menuitem" type="button">Radiografía Operativa</button>
+<button class="btn btnGhost reportTopBtn" data-pdf="assets/pdfs/report3_perspectiva_financiera.pdf" data-title="Perspectiva Financiera" role="menuitem" type="button">Perspectiva Financiera</button>
+<button class="btn btnGhost reportTopBtn" data-pdf="assets/pdfs/report4_informe_seguimiento.pdf" data-title="Informe Seguimiento" role="menuitem" type="button">Informe Seguimiento</button>
+<button class="btn btnGhost reportTopBtn" data-pdf="assets/pdfs/report5_verifyqa.pdf" data-title="Presentación" role="menuitem" type="button">Presentación</button>
+<button class="btn btnGhost reportTopBtn" data-pdf="assets/pdfs/report6_sello_casa_.pdf" data-title="Sello de la Casa" role="menuitem" type="button">Sello de la Casa</button>
+</div>
+</div>
+</header>
+<!-- VIEWPORT (prezi zoom) -->
+<main aria-label="Viewport" id="viewport">
+<div aria-hidden="true" id="bg"></div>
+<div aria-label="Mundo" id="world">
+<!-- MAP FRAME (hub) -->
+<section aria-hidden="false" class="frame frameMap is-active" data-frame="map" id="frame-map" style="left:1600px; top:900px; width:1200px; height:700px;">
+<div class="inner">
+<div class="mapRow">
+<div class="mapHero">
+<h1 class="mapTitle">Supervisión y Control de Sucursales y Tiendas</h1>
+<div aria-label="Componentes" class="mapBadges mapBadgesFeature">
+<span class="badge badgeBlue">Rutinas de revisión</span>
+<span class="badge badgeBlue">Incidencias</span>
+<span class="badge badgeBlue">Pendientes</span>
+<span class="badge badgeBlue">Semáforo</span>
+<span class="badge badgeBlue">Inventarios</span>
+<span class="badge badgeBlue">Sin hacer checklists</span>
+<span class="badge badgeBlue">Arranque rápido</span>
+</div>
+</div>
+<div aria-label="Slides" class="mapGrid" role="navigation">
+<button aria-label="1 · Estandarización" class="appTile" data-go="s1" type="button">
+<span class="appIcon i1"><span class="appNum">1</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 3.5 2.8 20h18.4L12 3.5Z"></path><path d="M12 9v5"></path><path d="M12 17.5h.01"></path></svg></span>
+<span class="appLabel">Estandarización</span>
+</button>
+<button aria-label="2 · Rutinas Predefinidas" class="appTile" data-go="s3" type="button">
+<span class="appIcon i2"><span class="appNum">2</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M7 3v3"></path><path d="M17 3v3"></path><path d="M4 7h16"></path><path d="M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"></path><path d="M15.5 14.5V12"></path><path d="M15.5 14.5h2"></path></svg></span>
+<span class="appLabel">Rutinas<br/>Predefinidas</span>
+</button>
+<button aria-label="3 · Frecuencia Rutinas" class="appTile" data-go="s4" type="button">
+<span class="appIcon i3"><span class="appNum">3</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M9 4h6"></path><path d="M9 2h6a2 2 0 0 1 2 2v2H7V4a2 2 0 0 1 2-2Z"></path><path d="M7 6h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"></path><path d="M8 11h8"></path><path d="M8 15h8"></path><path d="M8 19h5"></path></svg></span>
+<span class="appLabel">Frecuencia<br/>Rutinas</span>
+</button>
+<button aria-label="4 · Pasos Supervisión" class="appTile" data-go="s2" type="button">
+<span class="appIcon i4"><span class="appNum">4</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M7 7h4"></path><path d="M13 7h4"></path><path d="M7 17h4"></path><path d="M13 17h4"></path><path d="M9 7v10"></path><path d="M15 7v10"></path><path d="M9 12h6"></path><path d="M15 12l2-2"></path><path d="M15 12l2 2"></path></svg></span>
+<span class="appLabel">Pasos<br/>Supervisión</span>
+</button>
+<button aria-label="5 · Semáforo" class="appTile" data-go="s8" type="button">
+<span class="appIcon i8"><span class="appNum">5</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 5h16v14H4z"></path><path d="M8 5v14"></path><path d="M16 5v14"></path><path d="M4 10h16"></path><path d="M4 15h16"></path><path d="M6.5 8.5h.01"></path><path d="M14.5 13.5h.01"></path><path d="M18.5 17.5h.01"></path></svg></span>
+<span class="appLabel">Semáforo</span>
+</button>
+<button aria-label="6 · Inventarios" class="appTile" data-go="s9" type="button">
+<span class="appIcon i9"><span class="appNum">6</span><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M7 7h10v10H7z"></path><path d="M7 7l5-3 5 3"></path><path d="M12 4v3"></path><path d="M9 12h6"></path><path d="M9 15h6"></path></svg></span>
+<span class="appLabel">Inventarios</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- SLIDE 1 -->
+<section class="frame frameSlide" data-frame="s1" id="frame-s1" style="left:380px; top:420px; width:1200px; height:700px;">
+<div class="inner">
+<div class="slideScroll">
+<div class="slideGrid">
+<div class="copy">
+<h2>¿Tu Operación está estandarizada... O cada sucursal Opera como puede?</h2>
+<p class="lead">Lo que no se revisa y se le da seguimiento, se va en <strong>merma</strong>, <strong>fugas</strong> y <strong>mal servicio</strong>.</p>
+<div class="bigQuote">“No es falta de ganas. Es falta de visibilidad y cierre.”</div>
+<div aria-label="Rubros operativos" class="pillRow pillRowSema">
+<span class="pill" data-sema="y"><span aria-hidden="true" class="pillDot"></span>Bodega</span>
+<span class="pill" data-sema="r"><span aria-hidden="true" class="pillDot"></span>Patio</span>
+<span class="pill" data-sema="y"><span aria-hidden="true" class="pillDot"></span>Mostrador</span>
+<span class="pill" data-sema="g"><span aria-hidden="true" class="pillDot"></span>Caja</span>
+<span class="pill" data-sema="r"><span aria-hidden="true" class="pillDot"></span>Inventarios</span>
+<span class="pill" data-sema="g"><span aria-hidden="true" class="pillDot"></span>Compras</span>
+<span class="pill" data-sema="y"><span aria-hidden="true" class="pillDot"></span>Recepción</span>
+<span class="pill" data-sema="y"><span aria-hidden="true" class="pillDot"></span>Devoluciones/Garantías</span>
+<span class="pill" data-sema="r"><span aria-hidden="true" class="pillDot"></span>Fletes y entregas</span>
+<span class="pill" data-sema="r"><span aria-hidden="true" class="pillDot"></span>Crédito/Cobranza</span>
+<span class="pill" data-sema="r"><span aria-hidden="true" class="pillDot"></span>Seguridad y merma</span>
+</div>
+</div>
+<div class="visual">
+<div aria-hidden="true" class="qaDonutWrap">
+<div class="qaDonutCard">
+<div class="qaDonutTitle">Eficiencia Operativa</div>
+<div class="qaDonut" style="--p:85;">
+<div class="qaDonutText">85</div>
+</div>
+<div class="qaDonutSub">Rutinas cerradas vs programadas</div>
+</div>
+<div class="qaDonutCard">
+<div class="qaDonutTitle">Eficiencia del Inventario</div>
+<div class="qaDonut" style="--p:68; background: conic-gradient(var(--qa-amber) calc(var(--p) * 1%), rgba(11,27,45,.10) 0);">
+<div class="qaDonutText">68</div>
+</div>
+<div class="qaDonutSub">Conteos y diferencias cerradas a tiempo</div>
+</div>
+</div>
+<div aria-hidden="true" class="qaTileRow cols3">
+<div class="qaTile blue"><div class="lab">Calificación</div><div class="val">85</div></div>
+<div class="qaTile gray"><div class="lab">Avance</div><div class="val">66</div></div>
+<div class="qaTile amber"><div class="lab">En proceso</div><div class="val">8</div></div>
+<div class="qaTile magenta"><div class="lab">Vencidas</div><div class="val">3</div></div>
+<div class="qaTile teal"><div class="lab">Corregidas</div><div class="val">8</div></div>
+<div class="qaTile indigo"><div class="lab">Liberadas</div><div class="val">5</div></div>
+</div>
+<div class="note">Ejemplos reales: FYL · Calote · Humaya</div>
+</div>
+<div aria-hidden="true" class="heroWide heroS1">
+<!-- Para evitar complejidad y mantener navegación estable, este WOW hero usa una imagen fija tipo mapa. -->
+<img alt="Control por sucursal (últimos 7 días)" class="heroMapImg" src="assets/hero_map_sucursales.png"/>
+</div>
+</div>
+</div>
+<div class="navRow">
+<button class="btn btnBig" data-go="map" type="button">← Mapa</button>
+<button class="btn btnBig" data-go="s3" type="button">Siguiente →</button>
+</div>
+</div>
+</section>
+<!-- SLIDE 2 -->
+<section class="frame frameSlide" data-frame="s2" id="frame-s2" style="left:2700px; top:420px; width:1200px; height:700px;">
+<div class="inner">
+<div class="slideScroll">
+<div class="slideGrid s2Grid">
+<div class="copy">
+<h2>4 Pasos para la Supervisión y el Control de tu negocio</h2>
+<p class="lead">Sencillo, operativo, sin fricción.</p>
+<div aria-hidden="true" class="heroWide s2Hero">
+<div class="heroHeadRow">
+<div>
+<div class="heroH">Supervisión en 4 pasos (estilo “stories”)</div>
+<div class="heroSub">Cada paso se ve como una pantalla: lo que haces, lo que capturas y lo que controlas.</div>
+</div>
+</div>
+<div aria-label="4 pasos" class="s2StoryDeck">
+<!-- Story 1 -->
+<div class="s2StoryCard st1">
+<div class="s2StoryTop">
+<div aria-hidden="true" class="s2StoryBars">
+<span class="on"></span><span></span><span></span><span></span>
+</div>
+<div class="s2StoryMeta">
+<span class="s2StepPill">Paso 1</span>
+<span class="dot g s2DotSm" title="En control"></span>
+</div>
+<div class="s2StoryT">Programas tus rutinas</div>
+<div class="s2StoryS">Sucursal · Rubro · Frecuencia</div>
+</div>
+<div class="s2Phone">
+<div class="s2PhoneTop">
+<div class="s2PhoneH">Nueva rutina</div>
+<span class="s2MiniTag">Calendario</span>
+</div>
+<div class="s2MiniGrid">
+<div class="s2MiniCard"><div class="k">Sucursal</div><div class="v">Centro</div></div>
+<div class="s2MiniCard"><div class="k">Rubro</div><div class="v">Patio</div></div>
+<div class="s2MiniCard"><div class="k">Frecuencia</div><div class="v">Semanal</div></div>
+<div class="s2MiniCard"><div class="k">Ítems</div><div class="v">18</div></div>
+</div>
+<div class="s2PhoneFoot">
+<div class="avatarStack s2AvSm">
+<span class="av avS">JG</span>
+<span class="av avA">OP</span>
+<span class="av">AI</span>
+</div>
+<span class="s2MiniPill">Diaria</span>
+<span class="s2MiniPill">Semanal</span>
+</div>
+</div>
+<div class="s2StoryBottom">
+<div class="s2Line"><span class="s2Bullet">•</span> Se programa una sola vez.</div>
+<div class="s2Line"><span class="s2Bullet">•</span> Se asigna responsable automático.</div>
+</div>
+</div>
+<!-- Story 2 -->
+<div class="s2StoryCard st2">
+<div class="s2StoryTop">
+<div aria-hidden="true" class="s2StoryBars">
+<span></span><span class="on"></span><span></span><span></span>
+</div>
+<div class="s2StoryMeta">
+<span class="s2StepPill">Paso 2</span>
+<span class="dot y s2DotSm" title="En revisión"></span>
+</div>
+<div class="s2StoryT">Revisas en tienda</div>
+<div class="s2StoryS">SI / NO / NA + evidencia rápida</div>
+</div>
+<div class="s2Phone">
+<div class="s2PhoneTop">
+<div class="s2PhoneH">Checklist</div>
+<span class="s2MiniTag">8–12 min</span>
+</div>
+<div class="s2QList">
+<div class="s2QRow">
+<div class="q">Señalización de área visible</div>
+<div class="b"><span class="s2Badge ok">SI</span></div>
+</div>
+<div class="s2QRow">
+<div class="q">Orden de tarimas / pasillos</div>
+<div class="b"><span class="s2Badge na">NA</span></div>
+</div>
+<div class="s2QRow">
+<div class="q">EPP completo en operación</div>
+<div class="b"><span class="s2Badge no">NO</span></div>
+</div>
+</div>
+<div class="s2PhoneFoot">
+<span class="s2MiniPill">Foto</span>
+<span class="s2MiniPill">Nota</span>
+<span class="s2MiniPill">GPS</span>
+</div>
+</div>
+<div class="s2StoryBottom">
+<div class="s2Line"><span class="s2Bullet">•</span> Respuesta rápida, sin fricción.</div>
+<div class="s2Line"><span class="s2Bullet">•</span> Evidencia en el mismo paso.</div>
+</div>
+</div>
+<!-- Story 3 -->
+<div class="s2StoryCard st3">
+<div class="s2StoryTop">
+<div aria-hidden="true" class="s2StoryBars">
+<span></span><span></span><span class="on"></span><span></span>
+</div>
+<div class="s2StoryMeta">
+<span class="s2StepPill">Paso 3</span>
+<span class="dot r s2DotSm" title="Crítico"></span>
+</div>
+<div class="s2StoryT">Levantas incidencias</div>
+<div class="s2StoryS">Documentadas + responsable + fecha</div>
+</div>
+<div class="s2Phone">
+<div class="s2PhoneTop">
+<div class="s2PhoneH">Incidencia #1456</div>
+<span class="s2MiniTag danger">Alta</span>
+</div>
+<div class="s2MiniGrid">
+<div class="s2MiniCard"><div class="k">Evidencia</div><div class="v">2 fotos</div></div>
+<div class="s2MiniCard"><div class="k">Área</div><div class="v">Mostrador</div></div>
+<div class="s2MiniCard"><div class="k">Responsable</div><div class="v">Turno 2</div></div>
+<div class="s2MiniCard"><div class="k">Vence</div><div class="v">48h</div></div>
+</div>
+<div class="s2PhoneFoot">
+<div class="avatarStack s2AvSm">
+<span class="av avA">MT</span>
+<span class="av avS">SB</span>
+<span class="av avG">OK</span>
+</div>
+<span class="s2MiniPill red">Evidencia</span>
+</div>
+</div>
+<div class="s2StoryBottom">
+<div class="s2Line"><span class="s2Bullet">•</span> Queda trazabilidad completa.</div>
+<div class="s2Line"><span class="s2Bullet">•</span> Se controla por vencimiento.</div>
+</div>
+</div>
+<!-- Story 4 -->
+<div class="s2StoryCard st4">
+<div class="s2StoryTop">
+<div aria-hidden="true" class="s2StoryBars">
+<span></span><span></span><span></span><span class="on"></span>
+</div>
+<div class="s2StoryMeta">
+<span class="s2StepPill">Paso 4</span>
+<span class="dot g s2DotSm" title="Cerrado"></span>
+</div>
+<div class="s2StoryT">Cierras y liberas</div>
+<div class="s2StoryS">Validación + evidencia final</div>
+</div>
+<div class="s2Phone">
+<div class="s2PhoneTop">
+<div class="s2PhoneH">Cierre</div>
+<span class="s2MiniTag ok">OK</span>
+</div>
+<div class="s2BA">
+<div class="s2MiniShot"><div class="k">Antes</div><div class="shot"></div></div>
+<div class="s2MiniShot"><div class="k">Después</div><div class="shot"></div></div>
+</div>
+<div class="s2PhoneFoot">
+<span class="s2Badge done">CERRADO</span>
+<span class="s2Badge rel">LIBERADO</span>
+</div>
+</div>
+<div class="s2StoryBottom">
+<div class="s2Line"><span class="s2Bullet">•</span> Lo que se cierra, no se repite.</div>
+<div class="s2Line"><span class="s2Bullet">•</span> Dashboard actualizado al instante.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navRow">
+<button class="btn btnBig" data-go="s4" type="button">← Anterior</button>
+<button class="btn btnBig" data-go="s8" type="button">Siguiente →</button>
+</div>
+</div>
+</section>
+<!-- SLIDE 3 -->
+<section class="frame frameSlide" data-frame="s3" id="frame-s3" style="left:5050px; top:420px; width:1200px; height:700px;">
+<div class="inner">
+<div class="slideScroll">
+<div class="slideGrid">
+<div class="copy">
+<h2 class="tJust">Rutinas preconfiguradas para supervisar<br/>tus tiendas</h2>
+<p class="lead tJust">No tienes que configurar nada. Las rutinas ya vienen con puntos de control claros y reglas de cómo revisarlos.</p>
+</div>
+<div class="visual">
+<div aria-hidden="true" class="qaTileRow cols3">
+<div class="qaTile blue"><div class="lab">Rutinas listas</div><div class="val">120+</div></div>
+<div class="qaTile teal"><div class="lab">Rubros<br/><span class="sub">ferreteros</span></div><div class="val">18</div></div>
+<div class="qaTile amber"><div class="lab">Puntos de control en tiendas</div><div class="val">1500+</div></div>
+<div class="qaTile magenta"><div class="lab">Reglas claras</div><div class="val">SI / NO / NA</div></div>
+<div class="qaTile gray"><div class="lab">Evidencia</div><div class="val valSm">Foto<br/>nota</div></div>
+<div class="qaTile indigo"><div class="lab">Semáforo</div><div class="val">Prioridad</div></div>
+</div>
+</div>
+<div aria-hidden="true" class="heroWide heroS3">
+<div class="heroHeadRow">
+<div>
+<div class="heroH">Biblioteca de rutinas por rubro (listas para usar)</div>
+<div class="heroSub">Izquierda: catálogo. Derecha: puntos de control con reglas, evidencia y semáforo.</div>
+</div>
+</div>
+<div aria-label="Biblioteca y puntos de control" class="s3StoryDeck">
+<!-- Story: Catálogo -->
+<div class="s3StoryCard st1">
+<div class="s3StoryTop">
+<div aria-hidden="true" class="s3StoryBars">
+<span class="on"></span><span class="on"></span><span></span><span></span>
+</div>
+<div class="s3StoryMeta">
+<span class="s3StepPill">Catálogo</span>
+<span class="dot g s3DotSm" title="En control"></span>
+</div>
+<div class="s3StoryT">Rutinas por rubro</div>
+<div class="s3StoryS">Eliges rubro y plantilla</div>
+</div>
+<div class="s3Phone">
+<div class="s3PhoneTop">
+<div class="s3PhoneH">Biblioteca</div>
+<span class="s3MiniTag">Sucursal: Centro</span>
+</div>
+<div aria-hidden="true" class="s3Search">
+<span class="s3SearchIc">🔎</span>
+<span>Buscar rutina…</span>
+</div>
+<div aria-hidden="true" class="s3Chips">
+<span class="s3Chip on">Caja</span>
+<span class="s3Chip">Bodega</span>
+<span class="s3Chip">Patio</span>
+<span class="s3Chip">Mostrador</span>
+<span class="s3Chip">Inventarios</span>
+</div>
+<div aria-hidden="true" class="s3List">
+<div class="s3Item on"><span class="s3IcBox">💳</span><span>Caja y cortes</span><span class="dot g" title="Verde"></span></div>
+<div class="s3Item"><span class="s3IcBox">🧾</span><span>Cancelaciones</span><span class="dot y" title="Amarillo"></span></div>
+<div class="s3Item"><span class="s3IcBox">📦</span><span>Devoluciones</span><span class="dot g" title="Verde"></span></div>
+<div class="s3Item"><span class="s3IcBox">🔒</span><span>Fondos y vales</span><span class="dot r" title="Rojo"></span></div>
+<div class="s3Item"><span class="s3IcBox">🏷️</span><span>Precios y etiquetas</span><span class="dot y" title="Amarillo"></span></div>
+</div>
+<div aria-hidden="true" class="s3PhoneFoot">
+<div class="avatarStack s3AvSm">
+<span class="av avS">JG</span>
+<span class="av avA">OP</span>
+<span class="av">AI</span>
+</div>
+<span class="s3MiniPill">Diaria</span>
+<span class="s3MiniPill">Semanal</span>
+</div>
+</div>
+<div class="s3StoryBottom">
+<div class="s3Line"><span class="s3Bullet">•</span> Mismo estándar en todas las sucursales.</div>
+<div class="s3Line"><span class="s3Bullet">•</span> Sin inventarte checklists.</div>
+</div>
+</div>
+<!-- Story: Puntos de control -->
+<div class="s3StoryCard st2">
+<div class="s3StoryTop">
+<div aria-hidden="true" class="s3StoryBars">
+<span></span><span class="on"></span><span class="on"></span><span></span>
+</div>
+<div class="s3StoryMeta">
+<span class="s3StepPill">Puntos de control</span>
+<span class="dot y s3DotSm" title="Atención"></span>
+</div>
+<div class="s3StoryT">Caja y cortes (diaria)</div>
+<div class="s3StoryS">Regla: SI / NO / NA · Evidencia · Semáforo</div>
+</div>
+<div class="s3Phone">
+<div class="s3PhoneTop">
+<div class="s3PhoneH">Checklist</div>
+<span class="s3MiniTag">18 ítems</span>
+</div>
+<div aria-hidden="true" class="s3CheckList">
+<div class="s3CheckRow">
+<div class="s3CheckL">
+<div class="t">¿Corte completo y firmado?</div>
+<div class="m">SI / NO / NA · Evidencia: foto</div>
+</div>
+<span class="dot g" title="OK"></span>
+</div>
+<div class="s3CheckRow">
+<div class="s3CheckL">
+<div class="t">¿Depósito con evidencia?</div>
+<div class="m">SI / NO / NA · Evidencia: comprobante</div>
+</div>
+<span class="dot y" title="Revisar"></span>
+</div>
+<div class="s3CheckRow">
+<div class="s3CheckL">
+<div class="t">¿Cancelaciones justificadas?</div>
+<div class="m">SI / NO / NA · Evidencia: nota</div>
+</div>
+<span class="dot r" title="Riesgo"></span>
+</div>
+<div class="s3CheckRow">
+<div class="s3CheckL">
+<div class="t">¿Fondo de caja cuadrado?</div>
+<div class="m">SI / NO / NA · Evidencia: foto</div>
+</div>
+<span class="dot g" title="OK"></span>
+</div>
+<div class="s3CheckRow">
+<div class="s3CheckL">
+<div class="t">¿Vales y salidas autorizadas?</div>
+<div class="m">SI / NO / NA · Evidencia: nota</div>
+</div>
+<span class="dot y" title="Atención"></span>
+</div>
+</div>
+<div aria-hidden="true" class="s3PhoneFoot">
+<div class="s3Assign">
+<span class="s3MiniTag warn">Si NO: incidencia</span>
+<span class="s3MiniTag">Vence: 48h</span>
+</div>
+<div class="avatarStack s3AvSm">
+<span class="av avA">EC</span>
+<span class="av">AI</span>
+</div>
+</div>
+</div>
+<div class="s3StoryBottom">
+<div class="s3Line"><span class="s3Bullet">•</span> La regla evita interpretaciones por sucursal.</div>
+<div class="s3Line"><span class="s3Bullet">•</span> Si falla, queda responsable + seguimiento.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navRow">
+<button class="btn btnBig" data-go="s1" type="button">← Anterior</button>
+<button class="btn btnBig" data-go="s4" type="button">Siguiente →</button>
+</div>
+</div>
+</section>
+<!-- SLIDE 4 -->
+<section class="frame frameSlide" data-frame="s4" id="frame-s4" style="left:7400px; top:420px; width:1200px; height:700px;">
+<div class="inner">
+<div class="slideScroll">
+<div class="slideGrid">
+<div class="copy">
+<h2>Frecuencia de revisión de las rutinas en tus tiendas</h2>
+<p class="lead">Diarias, semanales y mensuales. Cada quién sabe qué le toca y cuándo ejecutarlo.</p>
+<div aria-label="Rubros clave" class="pillRow pillRowSema">
+<span class="pill" data-sema="g"><span aria-hidden="true" class="pillDot"></span>Caja y cortes</span>
+<span class="pill" data-sema="y"><span aria-hidden="true" class="pillDot"></span>Mostrador</span>
+<span class="pill" data-sema="y"><span aria-hidden="true" class="pillDot"></span>Bodega</span>
+<span class="pill" data-sema="r"><span aria-hidden="true" class="pillDot"></span>Patio</span>
+<span class="pill" data-sema="y"><span aria-hidden="true" class="pillDot"></span>Recepción proveedor</span>
+<span class="pill" data-sema="r"><span aria-hidden="true" class="pillDot"></span>Precios</span>
+</div>
+</div>
+<div class="visual">
+<div aria-hidden="true" class="schedule">
+<div class="schHead">
+<div>Rubro</div><div>Diario</div><div>Semanal</div><div>Mensual</div>
+</div>
+<div class="schRow"><div>Caja y cortes</div><div class="dot g"></div><div class="dot y"></div><div class="dot g"></div></div>
+<div class="schRow"><div>Mostrador / servicio</div><div class="dot y"></div><div class="dot g"></div><div class="dot y"></div></div>
+<div class="schRow"><div>Bodega</div><div class="dot y"></div><div class="dot y"></div><div class="dot g"></div></div>
+<div class="schRow"><div>Patio y maniobras</div><div class="dot r"></div><div class="dot y"></div><div class="dot y"></div></div>
+<div class="schRow"><div>Recepción proveedor</div><div class="dot y"></div><div class="dot y"></div><div class="dot g"></div></div>
+<div class="schRow"><div>Precios / etiquetado</div><div class="dot y"></div><div class="dot y"></div><div class="dot r"></div></div>
+</div>
+<div class="note">Frecuencia visible = menos variación entre sucursales.</div>
+</div>
+<div aria-hidden="true" class="heroWide heroS4">
+<div class="heroHeadRow">
+<div>
+<div class="heroSub">Se ve como una agenda simple: rubro → frecuencia → responsable → evidencia → semáforo.</div>
+</div>
+<div class="heroTagRow">
+<span class="heroTag"><i class="g"></i>Diario</span>
+<span class="heroTag"><i class="y"></i>Semanal</span>
+<span class="heroTag"><i class="b"></i>Mensual</span>
+</div>
+</div>
+<div aria-label="Frecuencias" class="s4StoryDeck">
+<!-- Diario -->
+<div class="s4StoryCard stD">
+<div class="s4StoryTop">
+<div aria-hidden="true" class="s4StoryBars"><span class="on"></span><span></span><span></span></div>
+<div class="s4StoryMeta">
+<span class="s4StepPill">Diario</span>
+<span class="dot g s4DotSm" title="En control"></span>
+</div>
+<div class="s4StoryT">Caja y cortes</div>
+<div class="s4StoryS">Checklist rápido + evidencia</div>
+</div>
+<div class="s4Phone">
+<div class="s4PhoneTop">
+<div class="s4PhoneH">Hoy · Sucursal Centro</div>
+<span class="s4MiniTag g">D</span>
+</div>
+<div class="s4MiniList">
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M7 7h10v10H7z"></path><path d="M9 10h6"></path><path d="M9 13h6"></path><path d="M9 16h4"></path></svg>
+<span>Corte X / Caja</span>
+<span class="dot g"></span>
+</div>
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M4 7h16"></path><path d="M6 3h12v18H6z"></path><path d="M8 11h8"></path><path d="M8 15h6"></path></svg>
+<span>Tickets vs efectivo</span>
+<span class="dot y"></span>
+</div>
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M4 7h16v10H4z"></path><path d="M8 7l2-3h4l2 3"></path><path d="M12 10v4"></path><path d="M10 12h4"></path></svg>
+<span>Evidencia (foto)</span>
+<span class="dot g"></span>
+</div>
+</div>
+<div class="s4Assign">
+<span class="s4Lbl">Asignado:</span>
+<span class="av avS">ER</span>
+<span class="av avA">MG</span>
+<span class="av avG">SA</span>
+</div>
+</div>
+</div>
+<!-- Semanal -->
+<div class="s4StoryCard stS">
+<div class="s4StoryTop">
+<div aria-hidden="true" class="s4StoryBars"><span></span><span class="on"></span><span></span></div>
+<div class="s4StoryMeta">
+<span class="s4StepPill">Semanal</span>
+<span class="dot y s4DotSm" title="En proceso"></span>
+</div>
+<div class="s4StoryT">Bodega · Recepción</div>
+<div class="s4StoryS">Orden, entradas y validación</div>
+</div>
+<div class="s4Phone">
+<div class="s4PhoneTop">
+<div class="s4PhoneH">Semana 8 · Oriente</div>
+<span class="s4MiniTag y">S</span>
+</div>
+<div class="s4MiniList">
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M7 7h10v10H7z"></path><path d="M7 7l5-3 5 3"></path><path d="M12 4v3"></path></svg>
+<span>Entradas vs factura</span>
+<span class="dot y"></span>
+</div>
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M4 12h16"></path><path d="M7 12l3 3 7-7"></path></svg>
+<span>Orden y señalización</span>
+<span class="dot g"></span>
+</div>
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M12 3v18"></path><path d="M7 8h10"></path><path d="M7 16h10"></path></svg>
+<span>Rotación / top faltantes</span>
+<span class="dot y"></span>
+</div>
+</div>
+<div class="s4Assign">
+<span class="s4Lbl">Asignado:</span>
+<span class="av avS">LU</span>
+<span class="av avA">AB</span>
+<span class="av avG">SA</span>
+</div>
+</div>
+</div>
+<!-- Mensual -->
+<div class="s4StoryCard stM">
+<div class="s4StoryTop">
+<div aria-hidden="true" class="s4StoryBars"><span></span><span></span><span class="on"></span></div>
+<div class="s4StoryMeta">
+<span class="s4StepPill">Mensual</span>
+<span class="dot b s4DotSm" title="Mensual"></span>
+</div>
+<div class="s4StoryT">Precios · Auditoría</div>
+<div class="s4StoryS">Reglas, diferencias y cierre</div>
+</div>
+<div class="s4Phone">
+<div class="s4PhoneTop">
+<div class="s4PhoneH">Mes · Centro</div>
+<span class="s4MiniTag b">M</span>
+</div>
+<div class="s4MiniList">
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M7 7h10v10H7z"></path><path d="M9 12h6"></path><path d="M12 9v6"></path></svg>
+<span>Revisión de etiquetas</span>
+<span class="dot y"></span>
+</div>
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M4 20h16"></path><path d="M6 20V8l6-4 6 4v12"></path><path d="M10 20v-6h4v6"></path></svg>
+<span>Merma / diferencias</span>
+<span class="dot r"></span>
+</div>
+<div class="s4MiniItem">
+<svg aria-hidden="true" class="s4Svg" viewbox="0 0 24 24"><path d="M7 12h10"></path><path d="M12 7v10"></path><path d="M5 5h14v14H5z"></path></svg>
+<span>Cierre y liberación</span>
+<span class="dot y"></span>
+</div>
+</div>
+<div class="s4Assign">
+<span class="s4Lbl">Asignado:</span>
+<span class="av avS">LF</span>
+<span class="av avA">QA</span>
+<span class="av avG">ER</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navRow">
+<button class="btn btnBig" data-go="s3" type="button">← Anterior</button>
+<button class="btn btnBig" data-go="s2" type="button">Siguiente →</button>
+</div>
+</div>
+</section>
+<!-- SLIDE 8 -->
+<section class="frame frameSlide" data-frame="s8" id="frame-s8" style="left:16850px; top:420px; width:1200px; height:700px;">
+<div class="inner">
+<div class="slideScroll">
+<div class="slideGrid">
+<div class="copy">
+<h2>Semáforo y matriz<br/>incidencias/riesgo</h2>
+<p class="lead">Quién no atiende y en qué rubros pega más.</p>
+</div>
+<div class="visual">
+<div aria-hidden="true" class="qaTileRow cols3">
+<div class="qaTile magenta"><div class="lab">Vencidas</div><div class="val">3</div></div>
+<div class="qaTile amber"><div class="lab">En riesgo</div><div class="val">5</div></div>
+<div class="qaTile teal"><div class="lab">Completadas</div><div class="val">8</div></div>
+<div class="qaTile gray"><div class="lab">Canceladas</div><div class="val">1</div></div>
+<div class="qaTile blue"><div class="lab">No atendidas</div><div class="val">2</div></div>
+<div class="qaTile indigo"><div class="lab">Reincidentes</div><div class="val">1</div></div>
+</div>
+</div>
+<div aria-hidden="true" class="heroWide heroS8">
+<div class="heroHeadRow">
+<div>
+<div class="heroH">Semáforo por sucursal y rubro</div>
+<div class="heroSub">De lo general a lo particular: concentración + criticidad.</div>
+</div>
+</div>
+<div aria-hidden="true" class="hmSplit s8Split">
+<!-- Izquierda: matriz sucursal × rubro -->
+<div class="heat s8Heat">
+<div class="s8MiniHead">
+<div class="s8MiniTitle">Sucursal × Rubro</div>
+<div class="s8MiniSub">Incidencias abiertas (demo)</div>
+<div class="s8Legend">
+<span class="s8Leg"><i class="s8Dot r"></i>Vencidas</span>
+<span class="s8Leg"><i class="s8Dot y"></i>En riesgo</span>
+<span class="s8Leg"><i class="s8Dot g"></i>OK</span>
+</div>
+</div>
+<div class="heatHead s8HeatHead">
+<div></div>
+<div class="s8Col"><svg aria-hidden="true" class="s8I" viewbox="0 0 24 24"><path d="M7 7h10v10H7z"></path><path d="M9 10h6"></path><path d="M9 13h6"></path><path d="M9 16h4"></path></svg><span>Caja</span></div>
+<div class="s8Col"><svg aria-hidden="true" class="s8I" viewbox="0 0 24 24"><path d="M4 7h16"></path><path d="M6 3h12v18H6z"></path><path d="M8 11h8"></path><path d="M8 15h6"></path></svg><span>Mostrador</span></div>
+<div class="s8Col"><svg aria-hidden="true" class="s8I" viewbox="0 0 24 24"><path d="M4 8h16"></path><path d="M4 8l2.5 10.5A2 2 0 0 0 8.5 20h7a2 2 0 0 0 2-1.5L20 8"></path><path d="M12 11v5"></path><path d="M12 18h.01"></path></svg><span>Bodega</span></div>
+<div class="s8Col"><svg aria-hidden="true" class="s8I" viewbox="0 0 24 24"><path d="M4 20h16"></path><path d="M6 20V8l6-4 6 4v12"></path><path d="M10 20v-6h4v6"></path></svg><span>Patio</span></div>
+<div class="s8Col"><svg aria-hidden="true" class="s8I" viewbox="0 0 24 24"><path d="M7 7h10v10H7z"></path><path d="M7 7l5-3 5 3"></path><path d="M12 4v3"></path><path d="M9 12h6"></path><path d="M9 15h6"></path></svg><span>Invent.</span></div>
+<div class="s8Col"><svg aria-hidden="true" class="s8I" viewbox="0 0 24 24"><path d="M4 7h16v10H4z"></path><path d="M8 7l2-3h4l2 3"></path><path d="M12 10v4"></path><path d="M10 12h4"></path></svg><span>Entregas</span></div>
+</div>
+<div class="heatRow s8HeatRow">
+<div class="s8RowLabel"><span class="s8Av a1">C</span>Centro</div>
+<div class="h g"><span class="hn">0</span></div>
+<div class="h y"><span class="hn">1</span></div>
+<div class="h y"><span class="hn">2</span></div>
+<div class="h g"><span class="hn">0</span></div>
+<div class="h g"><span class="hn">1</span></div>
+<div class="h y"><span class="hn">1</span></div>
+</div>
+<div class="heatRow s8HeatRow">
+<div class="s8RowLabel"><span class="s8Av a2">N</span>Norte</div>
+<div class="h y"><span class="hn">1</span></div>
+<div class="h y"><span class="hn">2</span></div>
+<div class="h r"><span class="hn">3</span></div>
+<div class="h y"><span class="hn">1</span></div>
+<div class="h y"><span class="hn">2</span></div>
+<div class="h y"><span class="hn">1</span></div>
+</div>
+<div class="heatRow s8HeatRow">
+<div class="s8RowLabel"><span class="s8Av a3">O</span>Oriente</div>
+<div class="h r"><span class="hn">4</span></div>
+<div class="h r"><span class="hn">3</span></div>
+<div class="h r"><span class="hn">5</span></div>
+<div class="h y"><span class="hn">2</span></div>
+<div class="h r"><span class="hn">4</span></div>
+<div class="h r"><span class="hn">3</span></div>
+</div>
+<div class="heatRow s8HeatRow">
+<div class="s8RowLabel"><span class="s8Av a4">P</span>Patio</div>
+<div class="h y"><span class="hn">2</span></div>
+<div class="h r"><span class="hn">3</span></div>
+<div class="h r"><span class="hn">4</span></div>
+<div class="h r"><span class="hn">3</span></div>
+<div class="h r"><span class="hn">3</span></div>
+<div class="h y"><span class="hn">2</span></div>
+</div>
+<div class="heatRow s8HeatRow">
+<div class="s8RowLabel"><span class="s8Av a5">Ca</span>Calote</div>
+<div class="h g"><span class="hn">1</span></div>
+<div class="h y"><span class="hn">1</span></div>
+<div class="h y"><span class="hn">2</span></div>
+<div class="h g"><span class="hn">0</span></div>
+<div class="h y"><span class="hn">1</span></div>
+<div class="h g"><span class="hn">0</span></div>
+</div>
+<div class="heatRow s8HeatRow">
+<div class="s8RowLabel"><span class="s8Av a6">H</span>Humaya</div>
+<div class="h g"><span class="hn">0</span></div>
+<div class="h g"><span class="hn">0</span></div>
+<div class="h y"><span class="hn">1</span></div>
+<div class="h g"><span class="hn">0</span></div>
+<div class="h g"><span class="hn">0</span></div>
+<div class="h g"><span class="hn">0</span></div>
+</div>
+<div class="s8Foot">Tip: esta vista sirve para ver rápido <strong>dónde apretar</strong> (sucursal + rubro) antes de ir al detalle.</div>
+</div>
+<!-- Derecha: matriz de riesgo -->
+<div class="matrix s8Matrix">
+<div class="s8MiniHead">
+<div class="s8MiniTitle">Matriz de riesgo</div>
+<div class="s8MiniSub">Impacto × Concentración de incidencias</div>
+</div>
+<div class="riskViz">
+<div class="riskTopRow">
+<div class="riskTopTitle">Nivel de riesgo</div>
+<div class="riskTopCols">
+<span class="riskPill low">Bajo</span>
+<span class="riskPill med">Medio</span>
+<span class="riskPill high">Alto</span>
+</div>
+</div>
+<div class="riskGrid2">
+<div class="riskAxis">Veces encontrado</div>
+<div class="riskRowLab">9 - 20</div>
+<div class="riskCell med dark">
+<div class="riskK">RIESGO MEDIO</div>
+<div class="riskN">7</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+<div class="riskCell high">
+<div class="riskK">RIESGO ALTO</div>
+<div class="riskN">0</div>
+<div class="riskS">Hallazgo encontrado</div>
+</div>
+<div class="riskCell crit">
+<div class="riskK">RIESGO CRÍTICO</div>
+<div class="riskN">3</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+<div class="riskRowLab">5 - 8</div>
+<div class="riskCell lowG dark">
+<div class="riskK">RIESGO BAJO</div>
+<div class="riskN">13</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+<div class="riskCell med dark">
+<div class="riskK">RIESGO MEDIO</div>
+<div class="riskN">6</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+<div class="riskCell high">
+<div class="riskK">RIESGO ALTO</div>
+<div class="riskN">14</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+<div class="riskRowLab">1 - 4</div>
+<div class="riskCell lowG dark">
+<div class="riskK">RIESGO BAJO</div>
+<div class="riskN">92</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+<div class="riskCell lowG dark">
+<div class="riskK">RIESGO BAJO</div>
+<div class="riskN">38</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+<div class="riskCell med dark">
+<div class="riskK">RIESGO MEDIO</div>
+<div class="riskN">52</div>
+<div class="riskS">Hallazgos encontrados</div>
+</div>
+</div>
+</div>
+<div class="s8Foot">Lectura: mueve recursos a lo <strong>alto impacto</strong> y <strong>alta concentración</strong>.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navRow">
+<button class="btn btnBig" data-go="s2" type="button">← Anterior</button>
+<button class="btn btnBig" data-go="s9" type="button">Siguiente →</button>
+</div>
+</div>
+</section>
+<!-- SLIDE 9 -->
+<section class="frame frameSlide" data-frame="s9" id="frame-s9" style="left:19200px; top:420px; width:1200px; height:700px;">
+<div class="inner">
+<div class="slideScroll">
+<div class="slideGrid">
+<div class="copy">
+<h2>Faltantes y Sobrantes en Inventarios</h2>
+<p class="lead">Conteos <strong>selectivos</strong>, <strong>rotativos</strong> y <strong>barridos</strong>… con diferencias justificadas por SKU.</p>
+</div>
+<div class="visual">
+<div aria-hidden="true" class="invKpi">
+<div class="invKpiHead">
+<span>Diferencias detectadas</span>
+<span class="s9Chip s9ChipY"><span class="s9Dot"></span> En riesgo</span>
+</div>
+<div class="invKpiRow">
+<div class="invMini"><div class="mLab">Faltantes</div><div class="mVal">$ 128k</div></div>
+<div class="invMini"><div class="mLab">Sobrantes</div><div class="mVal">$ 41k</div></div>
+<div class="invMini"><div class="mLab">SKUs tocados</div><div class="mVal">312</div></div>
+</div>
+<div class="invBars">
+<div class="bLab">Impacto</div>
+<div class="qaBar"><span style="width:78%"></span></div>
+<div class="invNote">Lo importante: que la diferencia se explique y se cierre.</div>
+</div>
+</div>
+<div class="pillRow pillRowRight">
+<span class="pill">Selectivo</span><span class="pill">Rotativo</span><span class="pill">Barrido</span><span class="pill">Justificación</span>
+</div>
+</div>
+<div aria-hidden="true" class="heroWide">
+<div class="heroHeadRow">
+<div>
+<div class="heroH">Pérdidas en inventarios (últimos 30 días)</div>
+<div class="heroSub">Primero por sucursal, luego por familia de producto y al final el detalle por SKU.</div>
+</div>
+</div>
+<div aria-hidden="true" class="invStack">
+<div class="barCard branchLoss">
+<div class="barTitle">Pérdidas por sucursal (quiebres · faltantes · sobrantes)</div>
+<div class="blRows">
+<div class="blRow">
+<div class="blName"><span class="btDot r"></span> Sucursal Patio</div>
+<div class="stackBar">
+<span class="seg q" style="width:45%"></span><span class="seg f" style="width:40%"></span><span class="seg s" style="width:15%"></span>
+</div>
+<div class="blVal">$112k</div>
+</div>
+<div class="blRow">
+<div class="blName"><span class="btDot y"></span> Sucursal Oriente</div>
+<div class="stackBar">
+<span class="seg q" style="width:15%"></span><span class="seg f" style="width:55%"></span><span class="seg s" style="width:30%"></span>
+</div>
+<div class="blVal">$74k</div>
+</div>
+<div class="blRow">
+<div class="blName"><span class="btDot y"></span> Sucursal Norte</div>
+<div class="stackBar">
+<span class="seg q" style="width:12%"></span><span class="seg f" style="width:68%"></span><span class="seg s" style="width:20%"></span>
+</div>
+<div class="blVal">$31k</div>
+</div>
+<div class="blRow">
+<div class="blName"><span class="btDot"></span> Sucursal Centro</div>
+<div class="stackBar">
+<span class="seg q" style="width:25%"></span><span class="seg f" style="width:30%"></span><span class="seg s" style="width:45%"></span>
+</div>
+<div class="blVal">$19k</div>
+</div>
+</div>
+<div class="blLegend">
+<span class="blChip"><span class="sw q"></span> Quiebres</span>
+<span class="blChip"><span class="sw f"></span> Faltantes</span>
+<span class="blChip"><span class="sw s"></span> Sobrantes</span>
+</div>
+</div>
+<div aria-hidden="true" class="barGrid">
+<div class="barCard">
+<div class="barTitle">Impacto de faltantes (MXN)</div>
+<div class="barRow"><div class="barLab">Tornillería</div><div class="bar"><span style="width:86%"></span></div><div class="barVal">$48k</div></div>
+<div class="barRow"><div class="barLab">Herramienta</div><div class="bar"><span style="width:64%"></span></div><div class="barVal">$36k</div></div>
+<div class="barRow"><div class="barLab">Eléctrico</div><div class="bar"><span style="width:52%"></span></div><div class="barVal">$29k</div></div>
+<div class="barRow"><div class="barLab">Pintura</div><div class="bar"><span style="width:38%"></span></div><div class="barVal">$21k</div></div>
+<div class="barRow"><div class="barLab">Plomería</div><div class="bar"><span style="width:26%"></span></div><div class="barVal">$14k</div></div>
+</div>
+<div class="barCard">
+<div class="barTitle">Top SKUs con diferencia (para conteo selectivo)</div>
+<div class="topSku"><div class="t">Pija 1/4 × 2" (caja)</div><div class="m"><span class="kBadge r">Faltante</span><span class="kBadge">–120 pzs</span><span class="kBadge">$9,600</span></div></div>
+<div class="topSku"><div class="t">Disco corte 4 1/2"</div><div class="m"><span class="kBadge r">Faltante</span><span class="kBadge">–48 pzs</span><span class="kBadge">$7,200</span></div></div>
+<div class="topSku"><div class="t">Cable THW 12 (m)</div><div class="m"><span class="kBadge y">Sobrante</span><span class="kBadge">+35 m</span><span class="kBadge">$4,900</span></div></div>
+<div class="topSku"><div class="t">Broca 3/8"</div><div class="m"><span class="kBadge r">Faltante</span><span class="kBadge">–18 pzs</span><span class="kBadge">$3,240</span></div></div>
+<div class="topSku"><div class="t">Thinner 1L</div><div class="m"><span class="kBadge y">Sobrante</span><span class="kBadge">+9 pzs</span><span class="kBadge">$1,980</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navRow">
+<button class="btn btnBig" data-go="s8" type="button">← Anterior</button>
+<button class="btn btnBig" data-go="map" type="button">Volver al Mapa →</button>
+</div>
+</section></div>
+<!-- Reportes PDF (accesibles desde el menú superior derecho) -->
+<section class="frame frameReport" data-frame="r1" style="left:1600px; top:2500px; width:1200px; height:760px;">
+<div class="inner">
+<div class="reportHeader">
+<button class="btn btnGhost reportBack" data-go="map" type="button">← Regresar al menú</button>
+<div class="reportHeadText">
+<div class="kicker">Reporte</div>
+<div class="reportTitle">Panorama General</div>
+<div class="reportSub">Resumen para Consejo / Comité (avance del programa)</div>
+</div>
+</div>
+<div class="slideScroll">
+<div class="pdfWrap pdfImages">
+<div class="pdfImgList">
+<img alt="Panorama General · pág. 1" class="pdfImg" loading="lazy" src="assets/reports/r1/p01.webp"/>
+<img alt="Panorama General · pág. 2" class="pdfImg" loading="lazy" src="assets/reports/r1/p02.webp"/>
+<img alt="Panorama General · pág. 3" class="pdfImg" loading="lazy" src="assets/reports/r1/p03.webp"/>
+<img alt="Panorama General · pág. 4" class="pdfImg" loading="lazy" src="assets/reports/r1/p04.webp"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="frame frameReport" data-frame="r2" style="left:2900px; top:2500px; width:1200px; height:760px;">
+<div class="inner">
+<div class="reportHeader">
+<button class="btn btnGhost reportBack" data-go="map" type="button">← Regresar al menú</button>
+<div class="reportHeadText">
+<div class="kicker">Reporte</div>
+<div class="reportTitle">Radiografía Operativa</div>
+<div class="reportSub">Evolución de una sucursal a través del tiempo</div>
+</div>
+</div>
+<div class="slideScroll">
+<div class="pdfWrap pdfImages">
+<div class="pdfImgList">
+<img alt="Radiografía Operativa · pág. 1" class="pdfImg" loading="lazy" src="assets/reports/r2/p01.webp"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="frame frameReport" data-frame="r3" style="left:4200px; top:2500px; width:1200px; height:760px;">
+<div class="inner">
+<div class="reportHeader">
+<button class="btn btnGhost reportBack" data-go="map" type="button">← Regresar al menú</button>
+<div class="reportHeadText">
+<div class="kicker">Reporte</div>
+<div class="reportTitle">Perspectiva Financiera</div>
+<div class="reportSub">Tendencia por cuentas (Bancos, Ventas, Inventarios, Compras, etc.)</div>
+</div>
+</div>
+<div class="slideScroll">
+<div class="pdfWrap pdfImages">
+<div class="pdfImgList">
+<img alt="Perspectiva Financiera · pág. 1" class="pdfImg" loading="lazy" src="assets/reports/r3/p01.webp"/>
+<img alt="Perspectiva Financiera · pág. 2" class="pdfImg" loading="lazy" src="assets/reports/r3/p02.webp"/>
+<img alt="Perspectiva Financiera · pág. 3" class="pdfImg" loading="lazy" src="assets/reports/r3/p03.webp"/>
+<img alt="Perspectiva Financiera · pág. 4" class="pdfImg" loading="lazy" src="assets/reports/r3/p04.webp"/>
+<img alt="Perspectiva Financiera · pág. 5" class="pdfImg" loading="lazy" src="assets/reports/r3/p05.webp"/>
+<img alt="Perspectiva Financiera · pág. 6" class="pdfImg" loading="lazy" src="assets/reports/r3/p06.webp"/>
+<img alt="Perspectiva Financiera · pág. 7" class="pdfImg" loading="lazy" src="assets/reports/r3/p07.webp"/>
+<img alt="Perspectiva Financiera · pág. 8" class="pdfImg" loading="lazy" src="assets/reports/r3/p08.webp"/>
+<img alt="Perspectiva Financiera · pág. 9" class="pdfImg" loading="lazy" src="assets/reports/r3/p09.webp"/>
+<img alt="Perspectiva Financiera · pág. 10" class="pdfImg" loading="lazy" src="assets/reports/r3/p10.webp"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="frame frameReport" data-frame="r4" style="left:5500px; top:2500px; width:1200px; height:760px;">
+<div class="inner">
+<div class="reportHeader">
+<button class="btn btnGhost reportBack" data-go="map" type="button">← Regresar al menú</button>
+<div class="reportHeadText">
+<div class="kicker">Reporte</div>
+<div class="reportTitle">Informe Seguimiento</div>
+<div class="reportSub">Cierre de visita · firmas · pendientes por responsable</div>
+</div>
+</div>
+<div class="slideScroll">
+<div class="pdfWrap pdfImages">
+<div class="pdfImgList">
+<img alt="Informe Seguimiento · pág. 1" class="pdfImg" loading="lazy" src="assets/reports/r4/p01.webp"/>
+<img alt="Informe Seguimiento · pág. 2" class="pdfImg" loading="lazy" src="assets/reports/r4/p02.webp"/>
+<img alt="Informe Seguimiento · pág. 3" class="pdfImg" loading="lazy" src="assets/reports/r4/p03.webp"/>
+<img alt="Informe Seguimiento · pág. 4" class="pdfImg" loading="lazy" src="assets/reports/r4/p04.webp"/>
+<img alt="Informe Seguimiento · pág. 5" class="pdfImg" loading="lazy" src="assets/reports/r4/p05.webp"/>
+<img alt="Informe Seguimiento · pág. 6" class="pdfImg" loading="lazy" src="assets/reports/r4/p06.webp"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main></div>
+<!-- PDF MODAL (Reportes) -->
+<div aria-hidden="true" class="pdfModal" id="pdfModal">
+<div class="pdfModalBackdrop" data-pdf-close=""></div>
+<div aria-label="Reporte PDF" aria-modal="true" class="pdfModalCard" role="dialog">
+<div class="pdfModalHeader">
+<div class="pdfModalTitle" id="pdfModalTitle">Reporte</div>
+<div class="pdfModalActions">
+<a class="btn btnGhost pdfModalOpen" href="#" id="pdfModalOpen" rel="noopener" target="_blank">Abrir en nueva pestaña</a>
+<button class="btn btnPrimary pdfModalClose" data-pdf-close="" type="button">Cerrar</button>
+</div>
+</div>
+<iframe class="pdfFrame" id="pdfFrame" src="" title="Reporte PDF"></iframe>
+</div>
+</div>
+<!-- Modal WhatsApp QR -->
+<div aria-hidden="true" aria-labelledby="whatsappModalTitle" aria-modal="true" class="whatsappOverlay" id="whatsappOverlay" role="dialog">
+<div class="whatsappModal" id="whatsappModal">
+<h2 class="whatsappModalTitle" id="whatsappModalTitle">WhatsApp</h2>
+<p class="whatsappModalLead">Escanea el QR y presiona ENVIAR para contactarnos</p>
+<div class="whatsappQrWrap">
+<img alt="Código QR para contactar por WhatsApp" class="whatsappQrImg" src="assets/whatsapp_qr.png"/>
+</div>
+<p class="whatsappModalSteps">1) Escanea – 2) Se abre WhatsApp – 3) Presiona ENVIAR. Recibirás el número al instante.</p>
+<button class="whatsappModalClose" id="whatsappModalClose" type="button">Cerrar</button>
+</div>
+</div>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+/**
+ * Tema DIAGRAMA28 — alineado al Gestor de Tareas (Angular)
+ * Mismos tokens que DIAGRAMA26 para consistencia visual.
+ */
+
+:root {
+  /* === Colores (Gestor de Tareas — estilo Tablero ferretero) === */
+  --color-primary: #2196f3;
+  --color-primary-dark: #1976d2;
+  --color-primary-darker: #1565c0;
+  --color-secondary: #424242;
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-danger: #f44336;
+  --color-info: #03a9f4;
+
+  --color-bg: #f8f9fb;
+  --color-bg-card: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #333333;
+  --color-text-secondary: #6b7280;
+
+  /* Aliases para compatibilidad con app.css existente */
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --ink: var(--color-text);
+  --muted: var(--color-text-secondary);
+  --line: rgba(0, 0, 0, 0.06);
+  --border-color: rgba(0, 0, 0, 0.1);
+
+  /* Sidebar: fondo gris suave para distinguirlo del área blanca */
+  --sidebar-bg: #f0f2f5;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --nav: var(--sidebar-bg);
+  --nav2: var(--sidebar-bg);
+  --brand: var(--color-primary);
+  --accent: var(--color-primary);
+
+  /* Estados semánticos */
+  --good: var(--color-success);
+  --warn: var(--color-warning);
+  --bad: var(--color-danger);
+
+  /* === Espaciado (4px base, Gestor) === */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* === Border radius (Gestor) === */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius: var(--radius-lg);
+  --radius2: var(--radius-xl);
+
+  /* === Sombras (Tablero ferretero: muy sutiles) === */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* === Tipografía (Gestor: Inter) === */
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.small {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
