@@ -284,8 +284,19 @@
   const pdfOpen = document.getElementById('pdfModalOpen');
 
   const pdfjsLib = window.pdfjsLib;
+  var pdfWorkerReady = Promise.resolve();
   if(pdfjsLib){
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    pdfWorkerReady = fetch('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js')
+      .then(function(r){ return r.text(); })
+      .then(function(text){
+        try{
+          var blob = new Blob([text], { type: 'application/javascript' });
+          var url = URL.createObjectURL(blob);
+          pdfjsLib.GlobalWorkerOptions.workerSrc = url;
+        }catch(_){}
+      })
+      .catch(function(){});
   }
 
   function openPdfModal(src, title){
@@ -314,17 +325,25 @@
       return;
     }
 
-    pdfjsLib.getDocument({ url: absoluteUrl }).promise
+    pdfWorkerReady.then(function(){
+      return pdfjsLib.getDocument({ url: absoluteUrl }).promise;
+    })
       .then(function(pdfDoc){
         return new Promise(function(resolve){
           requestAnimationFrame(function(){
-            resolve({ pdfDoc, containerW: pdfViewerContainer.offsetWidth || 800 });
+            requestAnimationFrame(function(){
+              setTimeout(function(){
+                var w = pdfViewerContainer.offsetWidth;
+                if(!w || w <= 0) w = Math.min(800, (window.innerWidth || 800) - 48);
+                resolve({ pdfDoc: pdfDoc, containerW: w });
+              }, 50);
+            });
           });
         });
       })
       .then(function(_){
-        const pdfDoc = _.pdfDoc;
-        const containerW = _.containerW;
+        var pdfDoc = _.pdfDoc;
+        var containerW = _.containerW;
         const numPages = pdfDoc.numPages;
         const scaleLimit = 3;
         const tasks = [];
