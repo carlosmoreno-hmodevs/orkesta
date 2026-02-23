@@ -1054,7 +1054,11 @@
 <button class="btn btnPrimary pdfModalClose" data-pdf-close="" type="button">Cerrar</button>
 </div>
 </div>
-<iframe class="pdfFrame" id="pdfFrame" src="" title="Reporte PDF"></iframe>
+<div class="pdfViewerWrap">
+<div class="pdfViewerLoading" id="pdfViewerLoading" aria-hidden="true">Cargando reporte…</div>
+<div class="pdfViewerContainer" id="pdfViewerContainer" aria-label="Páginas del reporte"></div>
+<iframe class="pdfFrameFallback" id="pdfFrameFallback" title="Reporte PDF (fallback)" aria-hidden="true"></iframe>
+</div>
 </div>
 </div>
 <!-- Modal WhatsApp QR -->
@@ -1070,6 +1074,7 @@
 </div>
 </div>
 <div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

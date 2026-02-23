@@ -275,34 +275,103 @@
   }
 
 
-  // ===== Reportes PDF (Topbar) =====
+  // ===== Reportes PDF (Topbar) — visor en página con PDF.js (móvil y escritorio) =====
   const pdfModal = document.getElementById('pdfModal');
-  const pdfFrame = document.getElementById('pdfFrame');
+  const pdfViewerContainer = document.getElementById('pdfViewerContainer');
+  const pdfViewerLoading = document.getElementById('pdfViewerLoading');
+  const pdfFrameFallback = document.getElementById('pdfFrameFallback');
   const pdfTitle = document.getElementById('pdfModalTitle');
   const pdfOpen = document.getElementById('pdfModalOpen');
 
+  const pdfjsLib = window.pdfjsLib;
+  if(pdfjsLib){
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+
   function openPdfModal(src, title){
-    if(!pdfModal || !pdfFrame) return;
+    if(!src) return;
     const cleanTitle = (title || 'Reporte').trim();
+    const absoluteUrl = new URL(src, window.location.href).href;
+
+    if(!pdfModal || !pdfViewerContainer) return;
     if(pdfTitle) pdfTitle.textContent = cleanTitle;
-    if(pdfOpen) pdfOpen.setAttribute('href', src || '#');
+    if(pdfOpen) pdfOpen.setAttribute('href', absoluteUrl);
 
     pdfModal.classList.add('show');
     pdfModal.setAttribute('aria-hidden','false');
-
-    // Prevent background scroll while viewing PDF
     document.documentElement.style.overflow = 'hidden';
 
-    // Load PDF (FitH)
-    const withHash = (src || '') + ((src || '').includes('#') ? '' : '#view=FitH');
-    pdfFrame.setAttribute('src', withHash);
+    pdfViewerContainer.innerHTML = '';
+    pdfViewerContainer.style.display = '';
+    if(pdfFrameFallback){ pdfFrameFallback.setAttribute('src', ''); pdfFrameFallback.setAttribute('aria-hidden', 'true'); pdfFrameFallback.style.display = 'none'; }
+    if(pdfViewerLoading){
+      pdfViewerLoading.textContent = 'Cargando reporte…';
+      pdfViewerLoading.setAttribute('aria-hidden', 'false');
+    }
+
+    if(!pdfjsLib){
+      if(pdfViewerLoading) pdfViewerLoading.textContent = 'Visor no disponible. Usa "Abrir en nueva pestaña".';
+      return;
+    }
+
+    pdfjsLib.getDocument({ url: absoluteUrl }).promise
+      .then(function(pdfDoc){
+        return new Promise(function(resolve){
+          requestAnimationFrame(function(){
+            resolve({ pdfDoc, containerW: pdfViewerContainer.offsetWidth || 800 });
+          });
+        });
+      })
+      .then(function(_){
+        const pdfDoc = _.pdfDoc;
+        const containerW = _.containerW;
+        const numPages = pdfDoc.numPages;
+        const scaleLimit = 3;
+        const tasks = [];
+        for(let i = 1; i <= numPages; i++){
+          tasks.push(
+            pdfDoc.getPage(i).then(function(page){
+              const v1 = page.getViewport({ scale: 1 });
+              const scale = Math.min(containerW / v1.width, scaleLimit);
+              const viewport = page.getViewport({ scale });
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              canvas.height = viewport.height;
+              canvas.width = viewport.width;
+              const wrap = document.createElement('div');
+              wrap.className = 'pdfPageWrap';
+              wrap.appendChild(canvas);
+              pdfViewerContainer.appendChild(wrap);
+              return page.render({ canvasContext: ctx, viewport: viewport }).promise;
+            })
+          );
+        }
+        return Promise.all(tasks);
+      })
+      .then(function(){
+        if(pdfViewerLoading) pdfViewerLoading.setAttribute('aria-hidden', 'true');
+      })
+      .catch(function(){
+        if(pdfViewerLoading) pdfViewerLoading.setAttribute('aria-hidden', 'true');
+        if(pdfViewerContainer) pdfViewerContainer.style.display = 'none';
+        if(pdfFrameFallback){
+          pdfFrameFallback.setAttribute('src', absoluteUrl + '#view=FitH');
+          pdfFrameFallback.setAttribute('aria-hidden', 'false');
+          pdfFrameFallback.style.display = 'block';
+        }
+      });
   }
 
   function closePdfModal(){
-    if(!pdfModal || !pdfFrame) return;
+    if(!pdfModal) return;
     pdfModal.classList.remove('show');
     pdfModal.setAttribute('aria-hidden','true');
-    pdfFrame.setAttribute('src', '');
+    if(pdfViewerContainer){ pdfViewerContainer.innerHTML = ''; pdfViewerContainer.style.display = ''; }
+    if(pdfFrameFallback){ pdfFrameFallback.setAttribute('src', ''); pdfFrameFallback.setAttribute('aria-hidden', 'true'); pdfFrameFallback.style.display = 'none'; }
+    if(pdfViewerLoading){
+      pdfViewerLoading.setAttribute('aria-hidden', 'true');
+      pdfViewerLoading.textContent = 'Cargando reporte…';
+    }
     document.documentElement.style.overflow = '';
   }
 

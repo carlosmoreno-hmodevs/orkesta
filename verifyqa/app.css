@@ -2290,13 +2290,66 @@ h2{font-size: var(--h2);}
   align-items:center;
   gap: 10px;
 }
-.pdfFrame{
+.pdfViewerWrap{
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.pdfViewerLoading{
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.95);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--muted);
+}
+.pdfViewerLoading[aria-hidden="false"]{
+  display: flex;
+}
+.pdfViewerContainer{
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.pdfViewerContainer .pdfPageWrap{
+  width: 100%;
+  max-width: 100%;
+  box-shadow: 0 2px 12px rgba(0,0,0,.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.pdfViewerContainer canvas{
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+.pdfFrameFallback{
+  display: none;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
   background: #fff;
 }
+.pdfFrameFallback[aria-hidden="false"]{
+  display: block;
+}
 @media (max-width: 720px){
-  .pdfModalActions .pdfModalOpen{ display:none; }
   .pdfModalCard{ width: 96vw; height: 90vh; border-radius: 18px; }
+  .pdfViewerContainer{ padding: 8px; gap: 8px; }
 }
