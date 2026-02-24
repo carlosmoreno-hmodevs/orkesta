@@ -1153,47 +1153,51 @@ function viewKpiCatalog(){
         el("button",{class:"btn", onclick:exportKpiCatalogCsv},["Export CSV"]),
       ])
     ]),
-    el("div",{class:"card", style:"margin-top:12px"},[
-      el("div",{class:"filters"},[
-        el("input",{class:"ksearch", placeholder:"Buscar KPI (ID, nombre, fórmula, fuente…)", value: state.kpiCatalogQuery || "",
-          oninput:(e)=>{state.kpiCatalogQuery = e.target.value; render();}}),
-        el("span",{class:"select"},[
-          el("span",{class:"small"},["Capa"]),
-          (function(){
-            const s = el("select",{onchange:(e)=>{state.kpiCatalogCapa=e.target.value; render();}});
-            capas.forEach(x=>{
-              const o = el("option",{value:x},[x]);
-              if((state.kpiCatalogCapa||"Todas")===x) o.selected = true;
-              s.appendChild(o);
-            });
-            return s;
-          })()
+    el("div",{class:"card kpiCatalogCard", style:"margin-top:12px"},[
+      el("div",{class:"filters kpiCatalogFilters"},[
+        el("div",{class:"kpiCatalogSearchWrap"},[
+          el("input",{class:"kpiCatalogSearch", type:"search", placeholder:"Buscar KPI (ID, nombre, fórmula, fuente…)", value: state.kpiCatalogQuery || "",
+            oninput:(e)=>{state.kpiCatalogQuery = e.target.value; render();}}),
         ]),
-        el("span",{class:"select"},[
-          el("span",{class:"small"},["Frecuencia"]),
-          (function(){
-            const s = el("select",{onchange:(e)=>{state.kpiCatalogFreq=e.target.value; render();}});
-            freqs.forEach(x=>{
-              const o = el("option",{value:x},[x]);
-              if((state.kpiCatalogFreq||"Todas")===x) o.selected = true;
-              s.appendChild(o);
-            });
-            return s;
-          })()
+        el("div",{class:"kpiCatalogSelectRow"},[
+          el("label",{class:"kpiCatalogLabel"},[
+            el("span",{class:"kpiCatalogLabelText"},["Capa"]),
+            (function(){
+              const s = el("select",{class:"kpiCatalogSelect", onchange:(e)=>{state.kpiCatalogCapa=e.target.value; render();}});
+              capas.forEach(x=>{
+                const o = el("option",{value:x},[x]);
+                if((state.kpiCatalogCapa||"Todas")===x) o.selected = true;
+                s.appendChild(o);
+              });
+              return s;
+            })()
+          ]),
+          el("label",{class:"kpiCatalogLabel"},[
+            el("span",{class:"kpiCatalogLabelText"},["Frecuencia"]),
+            (function(){
+              const s = el("select",{class:"kpiCatalogSelect", onchange:(e)=>{state.kpiCatalogFreq=e.target.value; render();}});
+              freqs.forEach(x=>{
+                const o = el("option",{value:x},[x]);
+                if((state.kpiCatalogFreq||"Todas")===x) o.selected = true;
+                s.appendChild(o);
+              });
+              return s;
+            })()
+          ]),
+          el("label",{class:"kpiCatalogLabel"},[
+            el("span",{class:"kpiCatalogLabelText"},["Fuente ERP"]),
+            (function(){
+              const s = el("select",{class:"kpiCatalogSelect", onchange:(e)=>{state.kpiCatalogFuente=e.target.value; render();}});
+              fuentes.forEach(x=>{
+                const o = el("option",{value:x},[x]);
+                if((state.kpiCatalogFuente||"Todas")===x) o.selected = true;
+                s.appendChild(o);
+              });
+              return s;
+            })()
+          ]),
         ]),
-        el("span",{class:"select"},[
-          el("span",{class:"small"},["Fuente ERP"]),
-          (function(){
-            const s = el("select",{onchange:(e)=>{state.kpiCatalogFuente=e.target.value; render();}});
-            fuentes.forEach(x=>{
-              const o = el("option",{value:x},[x]);
-              if((state.kpiCatalogFuente||"Todas")===x) o.selected = true;
-              s.appendChild(o);
-            });
-            return s;
-          })()
-        ]),
-        el("div",{class:"note small", style:"margin-left:auto"},[
+        el("p",{class:"kpiCatalogHint"},[
           "Click en un KPI para ver detalle (definición, fórmula, umbrales y notas)."
         ])
       ]),
@@ -1877,6 +1881,17 @@ function openDrawerCatObjetivo(obj){
     el("h4", {}, ["KPIs que mueven el objetivo"]),
     table,
     el("p", { class: "note muted" }, ["Semáforo calculado por cumplimiento vs meta (promedio simple)."])
+  ]));
+  body.appendChild(el("div", { class: "dblock", style: "margin-top: 1rem;" }, [
+    el("button", {
+      type: "button",
+      class: "btn primary",
+      onclick: function(){
+        state.bscDatosView = "catalogo";
+        closeDrawer();
+        navigate({ view: "bsc-datos" });
+      }
+    }, ["Catálogo de KPIs"])
   ]));
   drawer.classList.add("open");
 }
